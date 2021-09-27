@@ -1,0 +1,13 @@
+<%= form_with(model: @category, local: true) do |f| %>
+
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name, autocomplete: "Enter Name" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Add Category", class: 'btn btn-primary' %>
+  </div>
+
+<% end %>

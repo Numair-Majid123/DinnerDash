@@ -1,0 +1,39 @@
+
+<%= form_with(model: @item, local: true) do |f| %>
+
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name, autocomplete: "Enter Name" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_area :description, autocomplete: "Enter Description" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :price %><br />
+    <%= f.number_field :price, autocomplete: "Enter price" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :status %><br />
+    <%= f.number_field :status, autocomplete: "Enter price" %>
+  </div>
+
+    <%= f.fields_for :category_item do |p| %>
+      <div class="field">
+        <%= f.label "Category" %><br>
+        <%= f.select :category_ids, Category.all.collect { |x| [x.name, x.id]}, {}, :multiple => true %>
+        <%# <%= collection_select(:categories, :category_id, @categories, :id, :name, {}, {:multiple => true})%>
+      </div>
+
+    <% end %>
+
+
+  <div class="actions">
+    <%= f.submit "Add Item", class: 'btn btn-primary' %>
+  </div>
+
+<% end %>

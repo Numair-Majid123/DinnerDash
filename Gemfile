@@ -64,3 +64,5 @@ gem 'cloudinary', require: false
 gem 'activestorage-cloudinary-service'
 gem "bootstrap_form", "~> 4.0"
 gem 'devise'
+gem 'bootstrap', '~> 4.1.1'
+gem 'jquery-rails'
