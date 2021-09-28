@@ -1,0 +1,26 @@
+<h1>Shooping cart</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Items Name</th>
+      <th>Price</th>
+      <th>Detail</th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+    <% @cart.each do |item| %>
+    <tr>
+      <td><%= item.name %></td>
+      <td><%= item.price%></td>
+      <td><%= link_to 'Show', item_path(:id => item.id) %></td><br>
+    </tr>
+  
+    <% end %>
+  </tbody>
+</table>
+
+<% if @cart.present? %>
+  <%= button_to "Check out" %>
+<% end %>

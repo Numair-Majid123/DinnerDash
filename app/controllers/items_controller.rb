@@ -1,4 +1,17 @@
 class ItemsController < ApplicationController
+
+  def add_to_cart
+    id = params[:id].to_i
+    session[:cart] << id unless session[:cart].include?(id)
+    redirect_back(fallback_location: root_path)
+  end
+
+  def remove_from_cart
+    id = params[:id].to_i
+    session[:cart].delete(id)
+    redirect_back(fallback_location: root_path)
+  end
+
   def new
     @item = Item.new
     @categories = Category.all
@@ -45,6 +58,7 @@ class ItemsController < ApplicationController
   end
 
   def show
+    @item = Item.find(params[:id])
   end
 
   def index
