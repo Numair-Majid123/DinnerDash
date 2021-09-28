@@ -1,5 +1,6 @@
+<% if current_user.admin %>
 <b><%= link_to 'Create new category', new_category_path %></b>
-
+<% end %>
 <table>
   <thead>
     <tr>
@@ -11,8 +12,10 @@
     <% @category.each do |category|%>
         <tr>
             <td><%= link_to category.name, category_path(:id => category.id) %></td>
+            <% if current_user.admin %>
             <td><%= link_to 'Edit', edit_category_path(category)%> |
             <%= link_to 'Delete', category_path(:id => category.id), method: :delete, data: {confirm: "Are you sure?"} %></td>
+            <% end %>
         </tr>
     <%end%>
   </tbody>
