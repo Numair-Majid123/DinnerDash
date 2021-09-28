@@ -8,12 +8,6 @@ class ItemsController < ApplicationController
   def create
 
     @item = Item.new(params.require(:item).permit(:name, :description, :price, :status, category_ids: []))
-    # params.require(categories).permit(:name, :id)
-    # .each do |cate|
-    #   if !cate.empty?
-    #     @item.category_items.create(:category_id => cate)
-    # end
-  # end
     if @item.save
       flash[:success] = "Item created successfully"
       redirect_to items_path

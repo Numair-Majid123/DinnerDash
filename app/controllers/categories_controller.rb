@@ -5,17 +5,6 @@ class CategoriesController < ApplicationController
 
   end
 
-  # def create
-  #   @category = Category.new(category_params)
-  #   if @category.save
-  #     # redirect_to category_path(@category), notice: 'The category has been created successfully!'
-  #     flash[:notice] = "Article was created successfully."
-  #     redirect_to @category
-  #   else
-  #     render 'new'
-  #   end
-  # end
-
   def create
     @category = Category.new(catergory_params)
     if @category.save
