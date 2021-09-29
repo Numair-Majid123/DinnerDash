@@ -57,7 +57,7 @@ class OrdersController < ApplicationController
   def check_sign_in
     return if user_signed_in?
   end
-  
+
   def create_for_signed_in
     @order = Order.new
     @order.user_id = current_user.id
