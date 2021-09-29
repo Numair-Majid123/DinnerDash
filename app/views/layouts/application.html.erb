@@ -11,25 +11,25 @@
 
   <body>
     <% flash.each do |name, msg|%>
-    <%= msg %>
+      <%= msg %>
     <% end %>
     <p class="alert"><%= alert %></p>
     <nav class="navbar navbar-light bg-light">
-  <a class="navbar-brand" href="/">Dinner Dash</a>
-  <form class="form-inline">
-    <%= link_to 'Categories', categories_path, class: "btn btn-outline-primary"%>
-    <%= link_to 'Items', items_path, class: "btn btn-outline-primary"%>
-    <%= link_to 'My Cart', cart_path, class: "btn btn-outline-primary"%>
-    <% if user_signed_in? %> 
-      <%= link_to 'Edit Profile', edit_user_registration_path, class: "btn btn-outline-primary"%>
-      <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "btn btn-outline-success"%>
-      &nbsp Wellcome <%= current_user.display_name%>
-    <% else %>
-      <%= link_to "Sign up", new_user_registration_path, class: "btn btn-outline-success"%>
-      <%= link_to "Sign in", new_user_session_path, class: "btn btn-outline-primary"%>
-      <% end %>
-  </form>
-</nav>
+      <a class="navbar-brand" href="/">Dinner Dash</a>
+      <form class="form-inline">
+        <%= link_to 'Categories', categories_path, class: "btn btn-outline-primary"%>
+        <%= link_to 'Items', items_path, class: "btn btn-outline-primary"%>
+        <%= link_to 'My Cart', cart_path, class: "btn btn-outline-primary"%>
+        <% if user_signed_in? %> 
+          <%= link_to 'Edit Profile', edit_user_registration_path, class: "btn btn-outline-primary"%>
+          <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "btn btn-outline-primary"%>
+          &nbsp Welcome <%= current_user.display_name%>
+        <% else %>
+          <%= link_to "Sign up", new_user_registration_path, class: "btn btn-outline-primary"%>
+          <%= link_to "Sign in", new_user_session_path, class: "btn btn-outline-primary"%>
+          <% end %>
+      </form>
+    </nav>
     <%= yield %>
   </body>
 </html>

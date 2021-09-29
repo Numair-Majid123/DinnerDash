@@ -1,26 +1,2 @@
 <h3><%= @category.name%></h3>
-<table>
-  <thead>
-    <tr>
-      <th>Items</th>
-      <th>Shopping cart</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @items.each do |item|%>
-        <tr>
-            <td><%= item.name%></td>
-            <% if @cart.include?(item) %>
-              <%= hidden_field_tag 'selected', 'none'  %>
-              <td><%= button_to "Remove from cart", remove_from_cart_path(item), method: :delete%></td>
-            <% else %>  
-              <%= hidden_field_tag 'selected', 'none'  %>
-              <td><%= button_to "Add to cart", add_to_cart_path(item)%></td>
-            <% end %> 
-            <td><%= link_to 'Show', item_path(:id => item.id) %></td>
-        </tr>
-    <%end%>
-  </tbody>
-</table>
-
+<%= render 'items/shows'%>
