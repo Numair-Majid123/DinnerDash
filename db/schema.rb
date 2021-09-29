@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 2021_09_28_152252) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+
   create_table "categories", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.datetime "created_at", null: false
@@ -61,6 +62,7 @@ ActiveRecord::Schema.define(version: 2021_09_28_152252) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "quantity", default: 1
+
   end
 
   create_table "orders", force: :cascade do |t|
@@ -79,6 +81,7 @@ ActiveRecord::Schema.define(version: 2021_09_28_152252) do
     t.datetime "updated_at", null: false
     t.string "name", default: "", null: false
     t.string "display_name", default: "", null: false
+
     t.boolean "admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

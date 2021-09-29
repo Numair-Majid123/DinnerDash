@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
     @category = Category.new
 
   end
-  
+
   def create
     @category = Category.new(catergory_params)
     if @category.save
