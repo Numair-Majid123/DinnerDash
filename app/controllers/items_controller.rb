@@ -1,4 +1,17 @@
 class ItemsController < ApplicationController
+
+  def add_to_cart
+    id = params[:id].to_i
+    session[:cart] << id unless session[:cart].include?(id)
+    redirect_back(fallback_location: root_path)
+  end
+
+  def remove_from_cart
+    id = params[:id].to_i
+    session[:cart].delete(id)
+    redirect_back(fallback_location: root_path)
+  end
+
   def new
     @item = Item.new
     @categories = Category.all
@@ -7,19 +20,19 @@ class ItemsController < ApplicationController
 
   def create
 
-    @item = Item.new(params.require(:item).permit(:name, :description, :price, :status, category_ids: []))
-    if @item.save
+    @item = Item.new(item_params)
+     if @item.save
       flash[:success] = "Item created successfully"
       redirect_to items_path
     else
       flash[:error] = "Item not created successfully"
-      render 'new'
+      render items_path
     end
   end
 
   def update
     @item = Item.find(params[:id])
-    if @item.update(params.require(:item).permit(:name, :description, :price, :status, category_ids: []))
+    if @item.update(item_params)
       flash[:notice] = "Item was updated successfully."
       redirect_to items_path
     else
@@ -39,9 +52,14 @@ class ItemsController < ApplicationController
   end
 
   def show
+    @item = Item.find(params[:id])
   end
 
   def index
     @items = Item.all
+  end
+
+  def item_params
+    params.require(:item).permit(:name, :description, :price, :status, :image, category_ids: [])
   end
 end

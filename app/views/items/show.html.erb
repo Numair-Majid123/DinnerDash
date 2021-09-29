@@ -1,2 +1,27 @@
-<h1>Items#show</h1>
-<p>Find me in app/views/items/show.html.erb</p>
+<h1>Items Details</h1>
+
+
+<table>
+  <thead>
+    <tr>
+      <th>Items</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+
+  <tbody>
+        <tr>
+            <td><%= @item.name%></td>
+            <td><%= @item.description%></td>
+            <td><%= @item.price%></td>
+            <td><%= @item.status%></td>
+        </tr>
+  </tbody>
+</table>
+
+<div>
+  <%= image_tag(@item.image, style: 'width:100%')%>
+</div>
+
