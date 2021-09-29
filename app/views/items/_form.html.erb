@@ -30,7 +30,10 @@
       </div>
 
     <% end %>
-
+  <div class = "field">
+    <%= f.label :image %>
+    <%= f.file_field :image %>
+  </div>
 
   <div class="actions">
     <%= f.submit "Add Item", class: 'btn btn-primary' %>

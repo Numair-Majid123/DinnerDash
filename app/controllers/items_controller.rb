@@ -20,19 +20,19 @@ class ItemsController < ApplicationController
 
   def create
 
-    @item = Item.new(params.require(:item).permit(:name, :description, :price, :status, category_ids: []))
-    if @item.save
+    @item = Item.new(item_params)
+     if @item.save
       flash[:success] = "Item created successfully"
       redirect_to items_path
     else
       flash[:error] = "Item not created successfully"
-      render 'new'
+      render items_path
     end
   end
 
   def update
     @item = Item.find(params[:id])
-    if @item.update(params.require(:item).permit(:name, :description, :price, :status, category_ids: []))
+    if @item.update(item_params)
       flash[:notice] = "Item was updated successfully."
       redirect_to items_path
     else
@@ -57,5 +57,9 @@ class ItemsController < ApplicationController
 
   def index
     @items = Item.all
+  end
+
+  def item_params
+    params.require(:item).permit(:name, :description, :price, :status, :image, category_ids: [])
   end
 end
