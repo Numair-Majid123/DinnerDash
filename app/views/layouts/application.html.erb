@@ -10,23 +10,24 @@
   </head>
 
   <body>
-    <% flash.each do |name, msg|%>
-      <%= msg %>
-    <% end %>
-    <p class="alert"><%= alert %></p>
+    <p class = "notice"><%= notice%></p>
+    <p class = "alert"><%= alert%><br>
+    <% if user_signed_in? %> 
+      &nbsp <%= current_user.display_name%></p>
+      <% end %>
     <nav class="navbar navbar-light bg-light">
       <a class="navbar-brand" href="/">Dinner Dash</a>
       <form class="form-inline">
-        <%= link_to 'Categories', categories_path, class: "btn btn-outline-primary"%>
-        <%= link_to 'Items', items_path, class: "btn btn-outline-primary"%>
-        <%= link_to 'My Cart', cart_path, class: "btn btn-outline-primary"%>
+        <%= link_to 'Categories', categories_path, class: "btn btn-outline-primary mr-sm-3"%>
+        <%= link_to 'Items', items_path, class: "btn btn-outline-primary mr-sm-3"%>
+        <%= link_to 'My Cart', new_dinner_path, class: "btn btn-outline-primary mr-sm-3"%>
         <% if user_signed_in? %> 
-          <%= link_to 'Edit Profile', edit_user_registration_path, class: "btn btn-outline-primary"%>
-          <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "btn btn-outline-primary"%>
-          &nbsp Welcome <%= current_user.display_name%>
+          <%= link_to 'Edit Profile', edit_user_registration_path, class: "btn btn-outline-primary mr-sm-3"%>
+          <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "btn btn-outline-primary mr-sm-3"%>
+          
         <% else %>
-          <%= link_to "Sign up", new_user_registration_path, class: "btn btn-outline-primary"%>
-          <%= link_to "Sign in", new_user_session_path, class: "btn btn-outline-primary"%>
+          <%= link_to "Sign up", new_user_registration_path, class: "btn btn-outline-primary mr-sm-3"%>
+          <%= link_to "Sign in", new_user_session_path, class: "btn btn-outline-primary mr-sm-3"%>
           <% end %>
       </form>
     </nav>

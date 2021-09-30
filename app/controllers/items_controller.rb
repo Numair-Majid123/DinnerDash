@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 class ItemsController < ApplicationController
+  before_action :find_item, only: %i[show destroy edit update]
 
   def add_to_cart
     id = params[:id].to_i
@@ -19,47 +22,55 @@ class ItemsController < ApplicationController
   end
 
   def create
-
     @item = Item.new(item_params)
-     if @item.save
-      flash[:success] = "Item created successfully"
+    if @item.save
+      flash[:success] = 'Item created successfully'
       redirect_to items_path
     else
-      flash[:error] = "Item not created successfully"
+      flash[:error] = 'Item not created successfully'
       render items_path
     end
   end
 
   def update
-    @item = Item.find(params[:id])
     if @item.update(item_params)
-      flash[:notice] = "Item was updated successfully."
+      flash[:notice] = 'Item was updated successfully.'
       redirect_to items_path
     else
-        render 'edit'
+      render 'edit'
     end
   end
 
-  def edit
-    @item = Item.find(params[:id])
-
-  end
+  def edit; end
 
   def destroy
-    @item = Item.find(params[:id])
     @item.destroy!
     redirect_to items_path
   end
 
-  def show
-    @item = Item.find(params[:id])
-  end
+  def show; end
 
   def index
-    @items = Item.all
+    @items = if params[:category_id]
+               if (@category = Category.find_by(id: params[:category_id].to_i))
+                 Category.find_by(id: params[:category_id]).items
+               else
+                 flash[:alert] = 'Category not found'
+                 redirect_to categories_path
+               end
+             else
+               Item.all
+             end
   end
 
   def item_params
     params.require(:item).permit(:name, :description, :price, :status, :image, category_ids: [])
+  end
+
+  def find_item
+    @item = Item.find(params[:id])
+  rescue StandardError => e
+    flash[:alert] = e
+    redirect_to :back
   end
 end

@@ -1,6 +1,6 @@
 <h1>Shooping cart</h1>
-<table>
-  <thead>
+<table class = "table">
+  <thead class="thead-dark">
     <tr>
       <th>Items Name</th>
       <th>Price</th>
@@ -14,7 +14,7 @@
     <tr>
       <td><%= item.name %></td>
       <td><%= item.price%></td>
-      <td><%= link_to 'Show', item_path(:id => item.id) %></td><br>
+      <td><%= button_to 'Show', item_path(:id => item.id), class: "btn btn-info"%></td>
     </tr>
   
     <% end %>
@@ -22,5 +22,5 @@
 </table>
 
 <% if @cart.present? %>
-  <%= button_to "Check out", order_page_path %>
+  <%= button_to "Check out", checkouts_path, class: "btn btn-primary" %>
 <% end %>
