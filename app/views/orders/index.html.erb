@@ -1,0 +1,47 @@
+<h3>Orders List</h3>
+</p>
+<div class = "row justify-content-center">
+<div class = "btn btn-light link-light mr-sm-5"><%= link_to "All", orders_path("All")%></div>
+<div class = "btn btn-light link-light mr-sm-5"><%= link_to "Ordered", orders_path("Ordered")%></div>
+<div class = "btn btn-light link-light mr-sm-5"><%= link_to "Cancelled", orders_path("Cancelled")%></div>
+<div class = "btn btn-light link-light mr-sm-5"><%= link_to "Completed", orders_path("Completed")%></div>
+<div class = "btn btn-light link-light mr-sm-5"><%= link_to "Paid", orders_path("Paid")%></div>
+</div>
+<table class= "table">
+  <thead class="thead-dark col-sm-3">
+    <tr>
+      <th>Person Name</th>
+      <th>Order Time</th>
+      <th>Updated at</th>
+      <th>Status</th>
+      <%if current_user.admin%>
+        <th>Option</th>
+      <% end %>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @orders.each do |order|%>
+        <tr>
+            <td><%= order.user.name%></td>
+            <td><%= link_to order.created_at, order_items_path(order_id: order.id), method: :GET, class: "btn btn-info" %></td>
+            <td><%= order.updated_at%></td>
+            <td><%= order.order_type%></td>
+            <% if current_user.admin %> 
+                <td><div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Status
+                  </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <%= link_to @status_name[0], edit_order_path(order,@status_name[0]), method: :GET, class:"dropdown-item" %>
+                      <%= link_to @status_name[1], edit_order_path(order,@status_name[1]), method: :GET, class:"dropdown-item" %>
+                      <%= link_to @status_name[2], edit_order_path(order,@status_name[2]), method: :GET, class:"dropdown-item" %>
+                      <%= link_to @status_name[3], edit_order_path(order,@status_name[3]), method: :GET, class:"dropdown-item" %>
+                    </div>
+                </div></td>
+              <% end %>
+           
+        </tr>
+    <%end%>
+  </tbody>
+</table>

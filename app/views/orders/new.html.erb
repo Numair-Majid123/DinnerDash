@@ -1,2 +1,37 @@
-<h1>Orders#new</h1>
-<p>Find me in app/views/orders/new.html.erb</p>
+
+<h1>Shopping cart</h1>
+<table class = "table">
+  <thead class="thead-dark">
+    <tr>
+      <th>Items Name</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Sub Total</th>
+      <th>Detail</th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+    <% @cart.each do |item| %>
+    <tr>
+      <td><%= item.name %></td>
+      <td><%= item.price%></td>
+      <td><%= link_to '+', increase_quantity_order_path(item), method: :GET, class: "btn btn-success" %>
+      <%= session[:hash][item.id.to_s]%>
+      <%= link_to '-', decrease_quantity_order_path(item), method: :GET, class: "btn btn-success" %></td>
+      <td><%= item.price*session[:hash][item.id.to_s].to_i%></td>
+      <td><%= link_to 'Show ', item_path(:id => item.id), class: "btn btn-info" %></td>
+    </tr>
+  
+    <% end %>
+  </tbody>
+</table>
+
+
+<% if @cart.present? %>
+  <h4 align = "center">
+      Your total bill is: <b><%= @total %></b>    
+  </h4>
+  <%= button_to "Check out", orders_path(@cart), class: "btn btn-primary" %>
+<% end %>

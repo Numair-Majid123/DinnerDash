@@ -15,7 +15,9 @@
       <th>Detail</th>
       <th>Shopping cart</th>
       <% if user_signed_in? %>
-        <th>Action</th>
+        <% if current_user.admin %>
+          <th>Action</th>
+        <% end %>
       <% end %>
     </tr>
   </thead>
@@ -28,9 +30,9 @@
             <td><%= link_to 'Show ', item_path(:id => item.id), class: "btn btn-info" %></td>
             
             <% if @cart.include?(item) %>
-              <td><%= button_to "Remove from cart", remove_from_cart_path(item), method: :delete, class: "btn btn-danger" %> </td>
+              <td><%= link_to "Remove from cart", item_remove_from_cart_path(item), method: :delete, class: "btn btn-danger" %> </td>
              <% else %> 
-               <td><%= button_to "Add to cart", add_to_cart_path(item),class:"btn btn-success" %> </td>
+               <td><%= button_to "Add to cart", item_add_to_cart_path(item),class:"btn btn-success" %> </td>
             <% end %> 
             <% if user_signed_in? %>
               <% if current_user.admin %>

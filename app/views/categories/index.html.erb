@@ -9,13 +9,15 @@
       <th>Category</th>
       <th>Detail</th>
       <% if user_signed_in? %>
-        <th>Action</th>
+        <% if current_user.admin %>
+          <th>Action</th>
+        <% end %>
       <% end %>
     </tr>
   </thead>
 
   <tbody>
-    <% @category.each do |category|%>
+    <% @categories.each do |category|%>
         <tr>
             <td><%= category.name%></td>
             <td><%= link_to 'Show ', category_items_path(:category_id => category.id), class: "btn btn-info" %></td>

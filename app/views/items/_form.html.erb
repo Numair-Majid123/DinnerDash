@@ -26,11 +26,10 @@
         <div class="mb-3">
           <b><%= f.label "Category" %></b><br>
           <%= f.select :category_ids, Category.all.collect { |x| [x.name, x.id]}, {}, :multiple => true %>
-          <%# <%= collection_select(:categories, :category_id, @categories, :id, :name, {}, {:multiple => true})%>
         </div>
-
       <% end %>
     <div class = "mb-3">
+      <%= f.label :image %>
       <%= f.file_field :image, class: "btn btn-secondary" %>
     </div>
 

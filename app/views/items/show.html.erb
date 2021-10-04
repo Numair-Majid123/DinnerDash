@@ -19,6 +19,9 @@
   </tbody>
 </table>
 
-<div class="img-fluid img-thumbnail text-center">
-  <%= image_tag @item.image %>
+<div class=" text-center">
+
+  <% if @item.image_url %>
+    <%= image_tag @item.image_url %>
+ <% end %>
 </div>

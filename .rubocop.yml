@@ -13,6 +13,11 @@ AllCops:
     - 'node_modules/**/*'
     - 'vendor/bundle/**/*'
     - 'bin/**/*'
+    - 'rails-bootstrap/app/controllers/posts_controller.rb'
+    - 'rails-bootstrap/bin/setup'
+    - 'rails-bootstrap/bin/update'
+    - 'config/initializers/devise.rb'
+    - 'config/environments/development.rb'
     
 Metrics/LineLength:
   Max: 120
