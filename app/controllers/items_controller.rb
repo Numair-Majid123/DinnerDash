@@ -3,6 +3,7 @@
 class ItemsController < ApplicationController
   before_action :find_item, only: %i[show destroy edit update]
 
+<<<<<<< HEAD
   def index
     @items = if params[:category_id]
                item_for_category
@@ -12,6 +13,18 @@ class ItemsController < ApplicationController
                Item.all
              end
     redirect_to order_path(id: params[:order_id]) if params[:order_id]
+=======
+  def add_to_cart
+    id = params[:item_id].to_i
+    session[:cart] << id unless session[:cart].include?(id)
+    redirect_back(fallback_location: root_path)
+  end
+
+  def remove_from_cart
+    id = params[:item_id].to_i
+    session[:cart].delete(id)
+    redirect_back(fallback_location: root_path)
+>>>>>>> Added Order
   end
 
   def new
@@ -63,6 +76,7 @@ class ItemsController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
+<<<<<<< HEAD
   def add_to_cart
     session[:cart] << params[:item_id].to_i unless session[:cart].include?(params[:item_id].to_i)
     redirect_back(fallback_location: root_path)
@@ -73,6 +87,19 @@ class ItemsController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
+=======
+  def index
+    @items = if params[:category_id]
+               item_for_category
+             elsif params[:order_id]
+               item_for_order
+             else
+               Item.all
+             end
+    redirect_to order_path(@order) if params[:order_id]
+  end
+
+>>>>>>> Added Order
   private
 
   def item_params
@@ -87,6 +114,7 @@ class ItemsController < ApplicationController
   end
 
   def item_for_category
+<<<<<<< HEAD
     Item.includes(:categories).where('categories.id' => params[:category_id].to_i)
   rescue StandardError
     flash[:alert] = 'Category not found'
@@ -98,5 +126,22 @@ class ItemsController < ApplicationController
   rescue StandardError
     flash[:alert] = 'Order not found'
     redirect_to orders_path
+=======
+    if (@category = Category.find_by(id: params[:category_id].to_i))
+      @category.items
+    else
+      flash[:alert] = 'Category not found'
+      redirect_to categories_path
+    end
+  end
+
+  def item_for_order
+    if (@order = Order.find_by(id: params[:order_id].to_i))
+      @order.items
+    else
+      flash[:alert] = 'order not found'
+      redirect_to orders_path
+    end
+>>>>>>> Added Order
   end
 end
