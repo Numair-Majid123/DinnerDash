@@ -20,7 +20,7 @@
     <% @categories.each do |category|%>
         <tr>
             <td><%= category.name%></td>
-            <td><%= link_to 'Show ', category_items_path(:category_id => category.id), class: "btn btn-info" %></td>
+            <td><%= link_to 'Show ', category_items_path(category_id: category.id), class: "btn btn-info" %></td>
             <% if user_signed_in? %>
               <% if current_user.admin %>
                 <td><%= link_to 'Edit', edit_category_path(category),class:"btn btn-secondary" %> &nbsp &nbsp

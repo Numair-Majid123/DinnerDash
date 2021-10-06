@@ -3,6 +3,11 @@
 class OrdersController < ApplicationController
   before_action :find_order, only: %i[show edit]
 
+  def index
+    @status_name = %w[Ordered Paid Cancelled Completed]
+    @orders = filter_orders
+  end
+
   def new
     @cart.each do |item|
       session[:hash].merge!(item.id => 1)
@@ -21,9 +26,8 @@ class OrdersController < ApplicationController
     end
   end
 
-  def index
-    @status_name = %w[Ordered Paid Cancelled Completed]
-    @orders = filter_orders
+  def show
+    @items = @order.items
   end
 
   def edit
@@ -33,15 +37,6 @@ class OrdersController < ApplicationController
   end
 
   def destroy; end
-
-  def show
-    @items = @order.items
-    @total = 0
-    @items.each do |item|
-      @sub_total = item.price.to_i
-      @total += @sub_total
-    end
-  end
 
   def decrease_quantity
     session[:hash][params[:id]] -= 1 if session[:hash][params[:id]] > 1
@@ -54,6 +49,8 @@ class OrdersController < ApplicationController
     total_calculate
     render new_order_path
   end
+
+  private
 
   def total_calculate
     @total = 0
@@ -91,13 +88,17 @@ class OrdersController < ApplicationController
   def create_for_signed_in
     @order = Order.new(order_type: 'Ordered')
     @order.user_id = current_user.id
+    save_order
+  end
+
+  def save_order
     @cart.each do |item|
       @order.order_items.new(item_id: item.id, quantity: session[:hash][item.id.to_s])
-      flash[:alert] = if @order.save!
-                        'order created successfully'
-                      else
-                        'Item not created successfully'
-                      end
+      if @order.save!
+        flash[:notice] = 'order created successfully'
+      else
+        flash[:alert] = 'Item not created successfully'
+      end
     end
   end
 

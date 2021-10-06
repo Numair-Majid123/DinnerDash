@@ -1,31 +1,31 @@
-<div class="col-md-6 col-md-offset-3">
-  <%= form_with(model: @item, local: true) do |f| %>
 
+<div class="col-md-6 col-md-offset-3 " style = "padding-left: 33%">
+  <%= form_with(model: @item, local: true) do |f| %>
 
     <div class="mb-3">
       <b><%= f.label :name %></b><br />
-      <%= f.text_field :name, autocomplete: "Enter Name" %>
+      <%= f.text_field :name, autocomplete: "Enter Name", class: "form-control" %>
     </div>
 
     <div class="mb-3">
       <b><%= f.label :description %></b><br />
-      <%= f.text_area :description, autocomplete: "Enter Description" %>
+      <%= f.text_area :description, autocomplete: "Enter Description", class: "form-control" %>
     </div>
 
     <div class="mb-3">
       <b><%= f.label :price %></b><br />
-      <%= f.number_field :price, autocomplete: "Enter price" %>
+      <%= f.number_field :price, autocomplete: "Enter price", class: "form-control" %>
     </div>
 
     <div class="mb-3">
       <b><%= f.label :status %></b><br />
-      <%= f.number_field :status, autocomplete: "Enter price" %>
+      <%= f.number_field :status,min: 0, max: 1, autocomplete: "Status", class: "form-control" %>
     </div>
 
       <%= f.fields_for :category_item do |p| %>
         <div class="mb-3">
           <b><%= f.label "Category" %></b><br>
-          <%= f.select :category_ids, Category.all.collect { |x| [x.name, x.id]}, {}, :multiple => true %>
+          <%= f.select :category_ids, Category.all.collect { |x| [x.name, x.id]}, {}, :multiple => true, class: "form-control" %>
         </div>
       <% end %>
     <div class = "mb-3">
@@ -39,3 +39,5 @@
 
 <% end %>
 </div>
+
+<%= link_to 'back', items_path, class: "btn btn-dark mr-sm-3" %>
