@@ -1,11 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :dinners
-  resources :checkouts
-
   root to: 'items#index'
-
   devise_for :users, controllers: {
     sessions: 'users/sessions'
   }
@@ -13,6 +9,7 @@ Rails.application.routes.draw do
   resources :items do
     post :add_to_cart
     delete :remove_from_cart
+    delete :delete_association
   end
 
   resources :categories do

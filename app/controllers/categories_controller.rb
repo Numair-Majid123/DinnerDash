@@ -3,12 +3,18 @@
 class CategoriesController < ApplicationController
   before_action :find_category, only: %i[update edit destroy]
 
+  def index
+    @categories = Category.all
+  end
+
   def new
     @category = Category.new
+    authorize @category
   end
 
   def create
     @category = Category.new(catergory_params)
+    authorize @category
     if @category.save
       flash[:notice] = 'Category created successfully'
       redirect_to categories_path
@@ -16,6 +22,10 @@ class CategoriesController < ApplicationController
       flash[:error] = 'Category not created successfully'
       render 'new'
     end
+  end
+
+  def edit
+    authorize @category
   end
 
   def update
@@ -27,15 +37,10 @@ class CategoriesController < ApplicationController
     end
   end
 
-  def edit; end
-
   def destroy
+    authorize @category
     @category.destroy!
     redirect_to categories_path
-  end
-
-  def index
-    @categories = Category.all
   end
 
   private

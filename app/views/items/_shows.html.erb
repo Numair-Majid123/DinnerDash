@@ -1,4 +1,6 @@
-
+<% if params[:category_id]%>
+  <h4 class="text-center">  <b><%= Category.find(params[:category_id]).name%></b></h4> 
+<% end %>
 <p>
 
 <% if user_signed_in? %>
@@ -14,9 +16,12 @@
       <th>Items Name</th>
       <th>Detail</th>
       <th>Shopping cart</th>
+      
       <% if user_signed_in? %>
         <% if current_user.admin %>
-          <th>Action</th>
+          <th>Status</th>
+          <th colspan="2" style = "padding-left: 5%">Action</th>
+          
         <% end %>
       <% end %>
     </tr>
@@ -27,18 +32,32 @@
         <tr>
             <td><%= item.name%></td>
 
-            <td><%= link_to 'Show ', item_path(:id => item.id), class: "btn btn-info" %></td>
-            
-            <% if @cart.include?(item) %>
-              <td><%= link_to "Remove from cart", item_remove_from_cart_path(item), method: :delete, class: "btn btn-danger" %> </td>
-             <% else %> 
-               <td><%= button_to "Add to cart", item_add_to_cart_path(item),class:"btn btn-success" %> </td>
+            <td><%= link_to 'Show item', item_path(:id => item.id), class: "btn btn-info" %></td>
+            <% if item.status == 1%>
+              <% if @cart.include?(item)%>
+                <td><%= link_to "Remove from cart", item_remove_from_cart_path(item), method: :delete, class: "btn btn-danger" %> </td>
+              <% else %> 
+                <td><%= button_to "Add to cart", item_add_to_cart_path(item),class:"btn btn-success" %> </td>
+              <% end %>
+            <% else %>
+              <td>Out of Stock</td>
             <% end %> 
             <% if user_signed_in? %>
               <% if current_user.admin %>
-              
-                <td><%= link_to 'Edit', edit_item_path(item),class:"btn btn-secondary" %> &nbsp &nbsp
-                <%= link_to 'Delete', item_path(:id => item.id), method: :delete, data: {confirm: "Are you sure?"},class:"btn btn-secondary" %></td>
+                <td><div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <%= item.status%>
+                  </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <%= link_to 0, edit_item_path(item,0), method: :GET, class:"dropdown-item" %>
+                      <%= link_to 1, edit_item_path(item,1), method: :GET, class:"dropdown-item" %>
+                    </div>
+                </div></td>
+                <td><%= link_to 'Edit item', edit_item_path(item),class:"btn btn-secondary" %> &nbsp &nbsp
+                <%= link_to 'Delete item', item_path(:id => item.id), method: :delete, data: {confirm: "Are you sure?"},class:"btn btn-secondary" %></td>
+                <% if params[:category_id]%>
+                  <td><%= link_to "Remove from Category", item_delete_association_path(item, params[:category_id]), method: :delete, class:"btn btn-danger" %></td>
+                <% end %>
               <% end %>
             <% end %>
         </tr>

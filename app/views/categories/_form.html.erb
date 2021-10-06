@@ -1,10 +1,10 @@
-<div class="col-md-6 col-md-offset-3">
+<div class="col-md-6 col-md-offset-3" style = "padding-left: 33%">
 <%= form_with(model: @category, local: true) do |f| %>
 
 
   <div class="mb-3">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autocomplete: "Enter Name" %>
+    <b><%= f.label :name %></b><br />
+    <%= f.text_field :name, autocomplete: "Enter Name", class: "form-control" %>
   </div>
 
   <div class="actions">
@@ -13,3 +13,5 @@
 
 <% end %>
 </div>
+
+<%= link_to 'back', categories_path, class: "btn btn-dark mr-sm-3" %>

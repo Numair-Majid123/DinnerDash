@@ -11,7 +11,7 @@
 
   <body>
    
-    <nav class="navbar navbar-light bg-light">
+    <nav class="navbar navbar-light bg-light p-3">
       <a class="navbar-brand" href="/">Dinner Dash</a>
       <form class="form-inline">
         <% if user_signed_in? %> 
@@ -30,10 +30,20 @@
           <% end %>
       </form>
     </nav>
+    <% if alert%>
+    <div class="alert alert-danger" role="alert">
+    <p class = "alert"><%= alert%><br></p>
+    </div>
+    <% end %>
+
+    <% if notice%>
+    <div class="alert alert-success" role="alert">
      <p class = "notice"><%= notice%></p>
-    <p class = "alert"><%= alert%><br>
+    </div>
+    <% end %>
+    
     <% if user_signed_in? %> 
-      &nbsp <%= current_user.display_name%></p>
+      &nbsp <h5 class="text-right mr-5"><b><%= current_user.display_name%></h5></b>
       <% end %>
     <%= yield %>
   </body>

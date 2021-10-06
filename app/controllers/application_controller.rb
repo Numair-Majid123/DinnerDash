@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
   before_action :initialize_session
   before_action :load_cart
 
+  include Pundit
+
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
   protected
 
   def configure_permitted_parameters
@@ -24,5 +28,19 @@ class ApplicationController < ActionController::Base
 
   def load_cart
     @cart = Item.find(session[:cart])
+  end
+
+  def user_not_authorized
+    flash[:alert] = 'You are not authorized.'
+    redirect_to(request.referer || root_path)
+  end
+
+  def after_sign_in_path_for(_resource)
+    if session[:cart].empty?
+      root_path
+    else
+      flash[:alert] = 'Your order is ready please checkout again'
+      new_order_path
+    end
   end
 end
