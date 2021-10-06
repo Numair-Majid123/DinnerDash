@@ -59,7 +59,6 @@ class ItemsController < ApplicationController
 
   def delete_association
     if (@category = Category.find(params[:format].to_i)) && (@item = @category.items.find(params[:item_id].to_i))
-
       @category.items.delete(@item)
     end
     redirect_back(fallback_location: root_path)
