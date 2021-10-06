@@ -19,13 +19,8 @@
       
       <% if user_signed_in? %>
         <% if current_user.admin %>
-<<<<<<< HEAD
           <th>Status</th>
           <th colspan="2" style = "padding-left: 5%">Action</th>
-          
-=======
-          <th>Action</th>
->>>>>>> Added Order
         <% end %>
       <% end %>
     </tr>
@@ -35,8 +30,6 @@
     <% @items.each do |item|%>
         <tr>
             <td><%= item.name%></td>
-
-<<<<<<< HEAD
             <td><%= link_to 'Show item', item_path(:id => item.id), class: "btn btn-info" %></td>
             <% if item.status == 1%>
               <% if @cart.include?(item)%>
@@ -46,14 +39,6 @@
               <% end %>
             <% else %>
               <td>Out of Stock</td>
-=======
-            <td><%= link_to 'Show ', item_path(:id => item.id), class: "btn btn-info" %></td>
-            
-            <% if @cart.include?(item) %>
-              <td><%= link_to "Remove from cart", item_remove_from_cart_path(item), method: :delete, class: "btn btn-danger" %> </td>
-             <% else %> 
-               <td><%= button_to "Add to cart", item_add_to_cart_path(item),class:"btn btn-success" %> </td>
->>>>>>> Added Order
             <% end %> 
             <% if user_signed_in? %>
               <% if current_user.admin %>

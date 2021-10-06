@@ -11,4 +11,10 @@ class Item < ApplicationRecord
   has_many :orders, through: :order_items
 
   accepts_nested_attributes_for :categories
+
+  def self.ids_with_all_categories(category_ids)
+    select(:id).distinct
+               .joins(:categories)
+               .where('categories.id' => category_ids)
+  end
 end

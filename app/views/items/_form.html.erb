@@ -21,21 +21,12 @@
       <%= f.number_field :status,min: 0, max: 1, autocomplete: "Status", class: "form-control" %>
     </div>
 
-<<<<<<< HEAD
     <%= f.fields_for :category_item do |p| %>
       <div class="mb-3">
         <b><%= f.label "Category" %></b><br>
         <%= f.select :category_ids, Category.all.collect { |x| [x.name, x.id] }, {}, multiple: true, class: "form-control" %>
       </div>
     <% end %>
-=======
-      <%= f.fields_for :category_item do |p| %>
-        <div class="mb-3">
-          <b><%= f.label "Category" %></b><br>
-          <%= f.select :category_ids, Category.all.collect { |x| [x.name, x.id]}, {}, :multiple => true %>
-        </div>
-      <% end %>
->>>>>>> Added Order
     <div class = "mb-3">
       <%= f.label :image %>
       <%= f.file_field :image, class: "btn btn-secondary" %>

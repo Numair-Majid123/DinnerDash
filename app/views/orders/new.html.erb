@@ -1,9 +1,6 @@
 
-<<<<<<< HEAD
 <h3>Shopping Cart</h3>
-=======
-<h1>Shopping cart</h1>
->>>>>>> Added Order
+
 <table class = "table">
   <thead class="thead-dark">
     <tr>
@@ -12,11 +9,7 @@
       <th>Quantity</th>
       <th>Sub Total</th>
       <th>Detail</th>
-<<<<<<< HEAD
       <th>Action</th>
-
-=======
->>>>>>> Added Order
     </tr>
   </thead>
 
@@ -26,7 +19,7 @@
     <tr>
       <td><%= item.name %></td>
       <td><%= item.price%></td>
-<<<<<<< HEAD
+
       <td><%= link_to '-', decrease_quantity_order_path(item), method: :GET, class: "btn btn-success" %>
         <%= session[:hash][item.id.to_s]%>
         <%= link_to '+', increase_quantity_order_path(item), method: :GET, class: "btn btn-success" %></td>
@@ -37,13 +30,6 @@
       <% else %> 
         <td><%= button_to "Add to cart", item_add_to_cart_path(item),class:"btn btn-success" %> </td>
       <% end %> 
-=======
-      <td><%= link_to '+', increase_quantity_order_path(item), method: :GET, class: "btn btn-success" %>
-      <%= session[:hash][item.id.to_s]%>
-      <%= link_to '-', decrease_quantity_order_path(item), method: :GET, class: "btn btn-success" %></td>
-      <td><%= item.price*session[:hash][item.id.to_s].to_i%></td>
-      <td><%= link_to 'Show ', item_path(:id => item.id), class: "btn btn-info" %></td>
->>>>>>> Added Order
     </tr>
   
     <% end %>

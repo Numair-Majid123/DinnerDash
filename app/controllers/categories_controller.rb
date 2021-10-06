@@ -43,13 +43,6 @@ class CategoriesController < ApplicationController
     redirect_to categories_path
   end
 
-<<<<<<< HEAD
-=======
-  def index
-    @categories = Category.all
-  end
-
->>>>>>> Added Order
   private
 
   def catergory_params

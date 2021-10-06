@@ -10,12 +10,7 @@
   </head>
 
   <body>
-   
-<<<<<<< HEAD
     <nav class="navbar navbar-light bg-light p-3">
-=======
-    <nav class="navbar navbar-light bg-light">
->>>>>>> Added Order
       <a class="navbar-brand" href="/">Dinner Dash</a>
       <form class="form-inline">
         <% if user_signed_in? %> 
@@ -34,7 +29,6 @@
           <% end %>
       </form>
     </nav>
-<<<<<<< HEAD
     <% if alert%>
     <div class="alert alert-danger" role="alert">
     <p class = "alert"><%= alert%><br></p>
@@ -49,13 +43,7 @@
     
     <% if user_signed_in? %> 
       &nbsp <h5 class="text-right mr-5"><b><%= current_user.display_name%></h5></b>
-=======
-     <p class = "notice"><%= notice%></p>
-    <p class = "alert"><%= alert%><br>
-    <% if user_signed_in? %> 
-      &nbsp <%= current_user.display_name%></p>
->>>>>>> Added Order
-      <% end %>
+    <% end %>
     <%= yield %>
   </body>
 </html>
