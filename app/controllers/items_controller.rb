@@ -36,8 +36,7 @@ class ItemsController < ApplicationController
   def edit
     if params[:format] == '1' || params[:format] == '0'
       @item.status = params[:format]
-      @item.save
-      redirect_back(fallback_location: root_path)
+      redirect_back(fallback_location: root_path) if @item.save
     end
     authorize @item
   end
@@ -58,22 +57,19 @@ class ItemsController < ApplicationController
   end
 
   def delete_association
-    if (@category = Category.find(params[:format].to_i))
-      @item = @category.items.find(params[:item_id].to_i)
+    if (@category = Category.find(params[:format].to_i)) && (@item = @category.items.find(params[:item_id].to_i))
       @category.items.delete(@item)
     end
     redirect_back(fallback_location: root_path)
   end
 
   def add_to_cart
-    id = params[:item_id].to_i
-    session[:cart] << id unless session[:cart].include?(id)
+    session[:cart] << params[:item_id].to_i unless session[:cart].include?(params[:item_id].to_i)
     redirect_back(fallback_location: root_path)
   end
 
   def remove_from_cart
-    id = params[:item_id].to_i
-    session[:cart].delete(id)
+    session[:cart].delete(params[:item_id].to_i)
     redirect_back(fallback_location: root_path)
   end
 

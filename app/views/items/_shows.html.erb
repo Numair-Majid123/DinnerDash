@@ -1,5 +1,5 @@
 <% if params[:category_id]%>
-  <h4 class="text-center">  <b><%= @items.first.categories.first.name%></b></h4>
+  <h4 class="text-center">  <b><%= Category.find(params[:category_id]).name%></b></h4> 
 <% end %>
 <p>
 
