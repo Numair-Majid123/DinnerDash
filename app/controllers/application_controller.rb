@@ -28,6 +28,8 @@ class ApplicationController < ActionController::Base
 
   def load_cart
     @cart = Item.find(session[:cart])
+  rescue StandardError
+    flash[:alert] = "Session cart can't create. Please restart your app"
   end
 
   def user_not_authorized
@@ -39,7 +41,7 @@ class ApplicationController < ActionController::Base
     if session[:cart].empty?
       root_path
     else
-      flash[:alert] = 'Your order is ready please checkout again'
+      flash[:notice] = 'Your order is ready please checkout again'
       new_order_path
     end
   end

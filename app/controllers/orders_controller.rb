@@ -32,7 +32,11 @@ class OrdersController < ApplicationController
 
   def edit
     @order.order_type = params[:format]
-    @order.save
+    if @order.save
+      flash[:success] = 'Item created successfully'
+    else
+      flash[:error] = 'Item not created successfully'
+    end
     redirect_back(fallback_location: root_path)
   end
 
@@ -86,7 +90,7 @@ class OrdersController < ApplicationController
   end
 
   def create_for_signed_in
-    @order = Order.new(order_type: 'Ordered')
+    @order = Order.new
     @order.user_id = current_user.id
     save_order
   end
@@ -94,7 +98,7 @@ class OrdersController < ApplicationController
   def save_order
     @cart.each do |item|
       @order.order_items.new(item_id: item.id, quantity: session[:hash][item.id.to_s])
-      if @order.save!
+      if @order.save
         flash[:notice] = 'order created successfully'
       else
         flash[:alert] = 'Item not created successfully'
