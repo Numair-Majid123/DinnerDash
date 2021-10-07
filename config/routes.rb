@@ -1,15 +1,28 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  resources :orders
-  resources :categories 
-  resources :items
-  root to:"dinner#home"
+  root to: 'items#index'
   devise_for :users, controllers: {
     sessions: 'users/sessions'
   }
-  get "dinner/cart", to: "dinner#cart", as: "cart"
-  post "items/add_to_cart/:id", to: "items#add_to_cart", as: "add_to_cart"
-  post "checkout/order_page", to: "checkout#order_page", as: "order_page"
 
-  delete "items/remove_from_cart/:id", to: "items#remove_from_cart", as: "remove_from_cart"
+  resources :items do
+    post :add_to_cart
+    delete :remove_from_cart
+    delete :delete_association
+  end
+
+  resources :categories do
+    resources :items
+  end
+
+  resources :orders do
+    resources :items
+    member do
+      get :increase_quantity
+      get :decrease_quantity
+    end
+  end
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

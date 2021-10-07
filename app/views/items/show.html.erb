@@ -1,13 +1,12 @@
 <h1>Items Details</h1>
 
 
-<table>
-  <thead>
+<table class="table">
+  <thead class="thead-dark">
     <tr>
       <th>Items</th>
       <th>Description</th>
       <th>Price</th>
-      <th>Status</th>
     </tr>
   </thead>
 
@@ -16,12 +15,13 @@
             <td><%= @item.name%></td>
             <td><%= @item.description%></td>
             <td><%= @item.price%></td>
-            <td><%= @item.status%></td>
         </tr>
   </tbody>
 </table>
 
-<div>
-  <%= image_tag(@item.image, style: 'width:100%')%>
-</div>
+<div class=" text-center">
 
+  <% if @item.image_url %>
+    <%= cl_image_tag(@item.image_url, :width => 400)%>
+ <% end %>
+</div>

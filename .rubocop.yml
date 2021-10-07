@@ -1,0 +1,38 @@
+require: 
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rspec # or rubocop-minitest
+ 
+ 
+AllCops:
+  # Exclude auto-generated files by Rails
+  TargetRubyVersion: 2.7
+  TargetRailsVersion: 5.2
+  Exclude:
+    - 'db/schema.rb'
+    - 'node_modules/**/*'
+    - 'vendor/bundle/**/*'
+    - 'bin/**/*'
+    - 'rails-bootstrap/app/controllers/posts_controller.rb'
+    - 'rails-bootstrap/bin/setup'
+    - 'rails-bootstrap/bin/update'
+    - 'config/initializers/devise.rb'
+    - 'config/environments/development.rb'
+    
+Metrics/LineLength:
+  Max: 120
+  
+Metrics/MethodLength:
+  Max: 23
+
+Metrics/BlockLength:
+  Exclude:
+    - config/**/*
+    - spec/**/*
+
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - spec/**/*
+
+Style/Documentation:
+  Enabled: false
