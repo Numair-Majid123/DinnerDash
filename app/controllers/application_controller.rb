@@ -28,6 +28,22 @@ class ApplicationController < ActionController::Base
 
   def load_cart
     @cart = Item.find(session[:cart])
+  rescue StandardError
+    flash[:alert] = "Session cart can't create. Please restart your app"
+  end
+
+  def user_not_authorized
+    flash[:alert] = 'You are not authorized.'
+    redirect_to(request.referer || root_path)
+  end
+
+  def after_sign_in_path_for(_resource)
+    if session[:cart].empty?
+      root_path
+    else
+      flash[:notice] = 'Your order is ready please checkout again'
+      new_order_path
+    end
   end
 
   def user_not_authorized
