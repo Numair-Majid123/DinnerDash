@@ -3,7 +3,6 @@
 class ItemsController < ApplicationController
   before_action :find_item, only: %i[show destroy edit update]
 
-
   def index
     @items = if params[:category_id]
                item_for_category
@@ -73,8 +72,6 @@ class ItemsController < ApplicationController
     session[:cart].delete(params[:item_id].to_i)
     redirect_back(fallback_location: root_path)
   end
-
-
 
   private
 
