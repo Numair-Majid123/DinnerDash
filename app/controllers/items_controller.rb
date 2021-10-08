@@ -20,15 +20,10 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
 
-<<<<<<< HEAD
-=======
-    @item = Item.new(item_params)
->>>>>>> Implemented Checkout functionality
     if @item.save
       flash[:success] = 'Item created successfully'
       redirect_to items_path
     else
-<<<<<<< HEAD
       flash[:error] = 'Item not created successfully'
       render items_path
     end
@@ -40,23 +35,13 @@ class ItemsController < ApplicationController
     if params[:format] == '1' || params[:format] == '0'
       @item.status = params[:format]
       redirect_back(fallback_location: root_path) if @item.save
-=======
-      flash[:error] = "Item not created successfully"
-      render items_path
->>>>>>> Implemented Checkout functionality
     end
     authorize @item
   end
 
   def update
-<<<<<<< HEAD
     if @item.update(item_params)
       flash[:notice] = 'Item was updated successfully.'
-=======
-    @item = Item.find(params[:id])
-    if @item.update(item_params)
-      flash[:notice] = "Item was updated successfully."
->>>>>>> Implemented Checkout functionality
       redirect_to items_path
     else
       render 'edit'
