@@ -12,9 +12,5 @@ class Item < ApplicationRecord
 
   accepts_nested_attributes_for :categories
 
-  def self.ids_with_all_categories(category_ids)
-    select(:id).distinct
-               .joins(:categories)
-               .where('categories.id' => category_ids)
-  end
+  default_scope { order(created_at: :desc) }
 end

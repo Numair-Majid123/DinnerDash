@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 class CategoriesController < ApplicationController
-  before_action :find_category, only: %i[update edit destroy]
+  include CategoryConcern
 
+  before_action :find_category, only: %i[update edit destroy]
+  before_action :check_sign_in, only: %i[destroy edit update create new]
   def index
     @categories = Category.all
   end
@@ -29,6 +31,7 @@ class CategoriesController < ApplicationController
   end
 
   def update
+    authorize @category
     if @category.update(catergory_params)
       flash[:notice] = 'Article was updated successfully.'
       redirect_to categories_path
@@ -43,16 +46,10 @@ class CategoriesController < ApplicationController
     redirect_to categories_path
   end
 
-  private
+  def check_sign_in
+    return if user_signed_in?
 
-  def catergory_params
-    params.require(:category).permit(:name)
-  end
-
-  def find_category
-    @category = Category.find(params[:id])
-  rescue StandardError => e
-    flash[:alert] = e
-    redirect_to :back
+    flash[:alert] = 'Not Authorized...'
+    redirect_to categories_path
   end
 end

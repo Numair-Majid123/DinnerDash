@@ -1,0 +1,5 @@
+$('#quantity_value<%= params[:id] %>').html(" <%= session[:hash][params[:id]]%>");
+
+$('#sub_total<%= params[:id] %>').html(" <%= @price*session[:hash][params[:id]].to_i%>");
+
+$('#total').html(" <%= @total%>");

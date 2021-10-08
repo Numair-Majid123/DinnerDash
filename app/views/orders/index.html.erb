@@ -26,19 +26,19 @@
         <tr>
             <td><%= order.user.name%></td>
             <td><%= order.user.email%></td>
-            <td><%= link_to order.created_at, order_items_path(order_id: order.id), method: :GET, class: "btn btn-info" %></td>
-            <td><%= order.updated_at%></td>
-            <td><%= order.order_type%></td>
+            <td><%= link_to order.created_at.strftime("%F;  %T"), order_items_path(order_id: order.id), method: :GET, class: "btn btn-info" %></td>
+            <td><%= order.updated_at.strftime("%F;  %T")%></td>
+            <td id= 'status_field<%= order.id %>' ><%= order.order_type%></td>
             <% if current_user.admin %> 
                 <td><div class="dropdown">
                   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Status
                   </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <%= link_to @status_name[0], edit_order_path(order,@status_name[0]), method: :GET, class:"dropdown-item" %>
-                      <%= link_to @status_name[1], edit_order_path(order,@status_name[1]), method: :GET, class:"dropdown-item" %>
-                      <%= link_to @status_name[2], edit_order_path(order,@status_name[2]), method: :GET, class:"dropdown-item" %>
-                      <%= link_to @status_name[3], edit_order_path(order,@status_name[3]), method: :GET, class:"dropdown-item" %>
+                      <%= link_to @status_name[0], edit_order_path(order,@status_name[0]), remote: true, method: :GET, class:"dropdown-item" %>
+                      <%= link_to @status_name[1], edit_order_path(order,@status_name[1]), remote: true,method: :GET, class:"dropdown-item" %>
+                      <%= link_to @status_name[2], edit_order_path(order,@status_name[2]), remote: true, method: :GET, class:"dropdown-item" %>
+                      <%= link_to @status_name[3], edit_order_path(order,@status_name[3]), remote: true, method: :GET, class:"dropdown-item" %>
                     </div>
                 </div></td>
               <% end %>

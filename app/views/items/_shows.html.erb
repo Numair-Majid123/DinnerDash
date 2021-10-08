@@ -1,5 +1,5 @@
 <% if params[:category_id]%>
-  <h4 class="text-center">  <b><%= Category.find(params[:category_id]).name%></b></h4> 
+  <h4 class="text-center">  <b><%= @cate%></b></h4> 
 <% end %>
 <p>
 
@@ -32,11 +32,9 @@
             <td><%= item.name%></td>
             <td><%= link_to 'Show item', item_path(:id => item.id), class: "btn btn-info" %></td>
             <% if item.status == 1%>
-              <% if @cart.include?(item)%>
-                <td><%= link_to "Remove from cart", item_remove_from_cart_path(item), method: :delete, class: "btn btn-danger" %> </td>
-              <% else %> 
-                <td><%= button_to "Add to cart", item_add_to_cart_path(item),class:"btn btn-success" %> </td>
-              <% end %>
+                <td><%= button_to "Remove from cart", item_remove_from_cart_path(item), method: :delete, class: "btn btn-danger #{"none" unless @cart.include?(item)}", remote: true, id: "Remove#{item.id}" %>
+ 
+               <%= button_to "Add to cart", item_add_to_cart_path(item),class:"btn btn-success #{"none" if @cart.include?(item)}", id: "Create#{item.id}", remote: true %> </td>
             <% else %>
               <td>Out of Stock</td>
             <% end %> 

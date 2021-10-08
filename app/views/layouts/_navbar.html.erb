@@ -1,18 +1,4 @@
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Dinnerdash</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
-
-  <body>
-<<<<<<< HEAD
-    <nav class="navbar navbar-light bg-light p-3">
+<nav class="navbar navbar-light bg-light p-3">
       <a class="navbar-brand" href="/">Dinner Dash</a>
       <form class="form-inline">
         <% if user_signed_in? %> 
@@ -31,23 +17,3 @@
           <% end %>
       </form>
     </nav>
-    <% if alert%>
-    <div class="alert alert-danger" role="alert">
-    <p class = "alert"><%= alert%><br></p>
-    </div>
-=======
-    <%= render "layouts/navbar" %>
-    <% if notice %>
-      <p class="alert alert-success"><%= notice %></p>
->>>>>>> Finalize Project
-    <% end %>
-    <% if alert %>
-      <p class="alert alert-danger"><%= alert %></p>
-    <% end %>
-    
-    <% if user_signed_in? %> 
-      &nbsp <h5 class="text-right mr-5"><b><%= current_user.display_name%></h5></b>
-    <% end %>
-    <%= yield %>
-  </body>
-</html>

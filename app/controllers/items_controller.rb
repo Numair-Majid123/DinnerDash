@@ -1,16 +1,14 @@
 # frozen_string_literal: true
 
 class ItemsController < ApplicationController
+  include ItemConcern
+
   before_action :find_item, only: %i[show destroy edit update]
+  before_action :check_sign_in, only: %i[destroy edit update create new]
 
   def index
-    @items = if params[:category_id]
-               item_for_category
-             elsif params[:order_id]
-               item_for_order
-             else
-               Item.all
-             end
+    @items = finding_order
+    @cate = find_category.name if params[:category_id] && !find_category.nil?
     redirect_to order_path(id: params[:order_id]) if params[:order_id]
   end
 
@@ -56,47 +54,10 @@ class ItemsController < ApplicationController
     redirect_to items_path
   end
 
-  def delete_association
-    if (@category = Category.find(params[:format].to_i)) && (@item = @category.items.find(params[:item_id].to_i))
-      @category.items.delete(@item)
-    end
-    redirect_back(fallback_location: root_path)
-  end
+  def check_sign_in
+    return if user_signed_in?
 
-  def add_to_cart
-    session[:cart] << params[:item_id].to_i unless session[:cart].include?(params[:item_id].to_i)
-    redirect_back(fallback_location: root_path)
-  end
-
-  def remove_from_cart
-    session[:cart].delete(params[:item_id].to_i)
-    redirect_back(fallback_location: root_path)
-  end
-
-  private
-
-  def item_params
-    params.require(:item).permit(:name, :description, :price, :status, :image, category_ids: [])
-  end
-
-  def find_item
-    @item = Item.find(params[:id])
-  rescue ActiveRecord::RecordNotFound => e
-    flash[:alert] = e
-    redirect_to :back
-  end
-
-  def item_for_category
-    Item.includes(:categories).where('categories.id' => params[:category_id].to_i)
-  rescue StandardError
-    flash[:alert] = 'Category not found'
-    redirect_to categories_path
-  end
-
-  def item_for_order
-    Item.includes(:orders).where('orders.id' => params[:order_id].to_i)
-  rescue StandardError
-    flash[:alert] = 'Order not found'
-    redirect_to orders_path
+    flash[:alert] = 'Not Authorized...'
+    redirect_to items_path
   end
 end

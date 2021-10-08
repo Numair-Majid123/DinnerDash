@@ -15,6 +15,14 @@ class CategoryPolicy < ApplicationPolicy
     new?
   end
 
+  def create?
+    new?
+  end
+
+  def update?
+    new?
+  end
+
   def destroy?
     new?
   end

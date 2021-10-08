@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 class OrdersController < ApplicationController
+  include OrderConcern
+
   before_action :find_order, only: %i[show edit]
+  before_action :check_sign_in
 
 
   def index
@@ -34,62 +37,27 @@ class OrdersController < ApplicationController
   def edit
     @order.order_type = params[:format]
     if @order.save
-      flash[:success] = 'Item created successfully'
+      flash[:success] = 'Order Updated successfully'
     else
-      flash[:error] = 'Item not created successfully'
+      flash[:error] = 'Order was not updated successfully'
     end
-    redirect_back(fallback_location: root_path)
   end
 
   def destroy; end
 
-  def decrease_quantity
-    session[:hash][params[:id]] -= 1 if session[:hash][params[:id]] > 1
-    total_calculate
-    render new_order_path
-  end
-
-  def increase_quantity
-    session[:hash][params[:id]] += 1 if session[:hash][params[:id]] < 100
-    total_calculate
-    render new_order_path
-  end
-
-  private
-
-  def total_calculate
-    @total = 0
-    @cart.each do |item|
-      @sub_total = item.price.to_i * session[:hash][item.id.to_s].to_i
-      @total += @sub_total
-    end
-  end
-
-  def filter_orders
-    case params[:format]
-    when 'All'
-      all_orders
+  def find_order
+    if Order.find_by(id: params[:id]).nil?
+      flash[:alert] = 'order not found'
+      redirect_to orders_path('All')
     else
-      other_filtered_orders
+      @order = Order.find_by(id: params[:id])
     end
   end
 
-  def all_orders
-    if current_user.admin
-      Order.all
-    else
-      Order.where('user_id = ?', current_user.id)
-    end
+  def check_sign_in
+    return if user_signed_in?
   end
-
-  def other_filtered_orders
-    if current_user.admin
-      Order.where('order_type = ?', params[:format])
-    else
-      Order.where('user_id = ? AND order_type = ?', current_user.id, params[:format])
-    end
-  end
-
+  
   def create_for_signed_in
     @order = Order.new
     @order.user_id = current_user.id
@@ -107,10 +75,4 @@ class OrdersController < ApplicationController
     end
   end
 
-  def find_order
-    @order = Order.find(params[:id])
-  rescue StandardError => e
-    flash[:alert] = e
-    redirect_to :back
-  end
 end
