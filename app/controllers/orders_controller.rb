@@ -67,11 +67,11 @@ class OrdersController < ApplicationController
   def save_order
     @cart.each do |item|
       @order.order_items.new(item_id: item.id, quantity: session[:hash][item.id.to_s])
-      flash[:alert] = if @order.save!
-                        'order created successfully'
-                      else
-                        'Item not created successfully'
-                      end
+      if @order.save!
+        flash[:notice] = 'order created successfully'
+      else
+        flash[:alert] = 'Item not created successfully'
+      end
     end
   end
 
