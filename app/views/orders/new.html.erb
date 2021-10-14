@@ -1,0 +1,37 @@
+
+<h4>Shopping Cart</h4>
+<table class = "table">
+  <thead class="thead-dark">
+    <tr>
+      <th>Items Name</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Sub Total</th>
+      <th>Detail</th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+    <% @cart.each do |item| %>
+    <tr id = "record<%= item.id %>">
+      <td><%= item.name %></td>
+      <td><%= item.price%></td>
+      <td><%= link_to '-', decrease_quantity_order_path(item), method: :GET, class: "btn btn-success",remote: true %>
+        <span id = 'quantity_value<%= item.id %>'><%= session[:hash][item.id.to_s]%></span>
+        <%= link_to '+', increase_quantity_order_path(item), method: :GET, class: "btn btn-success",remote: true%></td>
+      <td id = 'sub_total<%= item.id %>'><%= item.price*session[:hash][item.id.to_s].to_i%></td>
+      <td><%= link_to 'Show ', item_path(:id => item.id), class: "btn btn-info" %></td>
+    </tr>
+  
+    <% end %>
+  </tbody>
+</table>
+
+
+<% if @cart.present? %>
+  <h4>
+      Your total bill is: <b><span id = "total"><%= @total %></span></b>    
+      <%= button_to "Check out", orders_path(@cart), class: "btn btn-primary mt-3" %>
+  </h4>
+<% end %>

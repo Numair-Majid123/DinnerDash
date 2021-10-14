@@ -1,0 +1,8 @@
+<% if policy(@category).admin %>
+
+<h3 class = "center_class">Create a new Category</h3>
+
+<%= render 'form' %>
+<% else %>
+<%flash[:alert] = 'Not Authorized...' %>
+<% end %>

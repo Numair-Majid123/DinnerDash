@@ -1,0 +1,27 @@
+<h4>Items Details</h4>
+
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th>Items</th>
+      <th>Description</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+
+  <tbody>
+        <tr>
+            <td><%= @item.name%></td>
+            <td><%= @item.description%></td>
+            <td><%= @item.price%></td>
+        </tr>
+  </tbody>
+</table>
+
+<div class=" text-center">
+
+  <% if @item.image_url %>
+    <%= cl_image_tag(@item.image_url, :width => 400)%>
+ <% end %>
+</div>

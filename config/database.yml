@@ -1,0 +1,9 @@
+development:
+  host: 'localhost'
+  adapter: postgresql
+  encoding: unicode
+  database: pg
+  pool: 5
+  timeout: 5000
+  username: admin
+  password: 123

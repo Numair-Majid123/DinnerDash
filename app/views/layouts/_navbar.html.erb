@@ -1,0 +1,19 @@
+<nav class="navbar navbar-light bg-light p-3">
+      <a class="navbar-brand" href="/">Dinner Dash</a>
+      <form class="form-inline">
+        <% if user_signed_in? %> 
+          <%= link_to 'All Orders', orders_path("All"), class: "btn btn-outline-primary mr-sm-3"%>
+        <% end %>
+        <%= link_to 'Categories', categories_path, class: "btn btn-outline-primary mr-sm-3"%>
+        <%= link_to 'Items', items_path, class: "btn btn-outline-primary mr-sm-3"%>
+        <%= link_to 'My Cart', new_order_path, class: "btn btn-outline-primary mr-sm-3"%>
+        <% if user_signed_in? %> 
+          <%= link_to 'Edit Profile', edit_user_registration_path, class: "btn btn-outline-primary mr-sm-3"%>
+          <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "btn btn-outline-primary mr-sm-3"%>
+          
+        <% else %>
+          <%= link_to "Sign up", new_user_registration_path, class: "btn btn-outline-primary mr-sm-3"%>
+          <%= link_to "Sign in", new_user_session_path, class: "btn btn-outline-primary mr-sm-3"%>
+          <% end %>
+      </form>
+    </nav>

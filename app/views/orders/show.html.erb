@@ -1,0 +1,34 @@
+
+<h4>Order Detail</h4>
+
+</p>
+<table class= "table">
+  <thead class="thead-dark col-sm-3">
+    <tr>
+      <th>Person Email</th>
+      <th>Item Name</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Sub Total</th>
+      <th>Detail</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <%@total = 0%>
+    <% @items.each do |item|%>
+        <tr>
+            <td><%= @order.user.email%></td>
+            <td><%= item.name%></td>
+            <td><%= item.price%></td>
+            <td><%= @quantity = @order.order_items.find_by(item_id: item.id).quantity%>
+            <td><%= @subtotal = item.price*@quantity%>
+            <% @total += @subtotal%>
+            <td><%= link_to 'Show ', order_item_path(id: item.id, order_id: @order.id), class: "btn btn-info" %></td>
+        </tr>
+    <%end%>
+  </tbody>
+</table>
+<h4>
+      Your total bill is: <b><%= @total %></b>    
+  </h4>
