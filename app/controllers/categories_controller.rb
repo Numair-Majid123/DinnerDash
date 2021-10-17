@@ -5,7 +5,7 @@ class CategoriesController < ApplicationController
 
   before_action :find_category, only: %i[update edit destroy]
 
-  before_action only: %i[destroy update edit create] do
+  before_action only: %i[destroy update edit] do
     authorized_user(@category)
   end
 
@@ -19,6 +19,7 @@ class CategoriesController < ApplicationController
 
   def create
     @category = Category.new(catergory_params)
+    authorized_user(@category)
     if @category.save
       flash[:notice] = 'Category created successfully'
       redirect_to categories_path

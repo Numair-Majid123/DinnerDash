@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   end
 
   resources :categories do
-    resources :items
+    resources :items, shallow: true
   end
 
   resources :orders do

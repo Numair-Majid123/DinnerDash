@@ -9,4 +9,11 @@ class Order < ApplicationRecord
   has_many :items, through: :order_items
 
   default_scope { order(created_at: :desc) }
+
+  enum order_type: {
+    Ordered: 0,
+    Paid: 1,
+    Cencelled: 2,
+    Completed: 3
+  }
 end

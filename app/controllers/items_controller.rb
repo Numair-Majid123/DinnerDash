@@ -6,7 +6,7 @@ class ItemsController < ApplicationController
 
   before_action :find_item, only: %i[show destroy edit update]
 
-  before_action only: %i[destroy update edit create] do
+  before_action only: %i[destroy update edit] do
     authorized_user(@item)
   end
 
@@ -22,6 +22,7 @@ class ItemsController < ApplicationController
 
   def create
     @item = Item.new(item_params)
+    authorized_user(@item)
     if @item.save
       flash[:success] = 'Item created successfully'
       redirect_to items_path

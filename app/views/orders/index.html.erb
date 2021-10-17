@@ -1,12 +1,11 @@
 
 <h4><b>Orders List</b></h4>
-</p>
-<div class = "row justify-content-center">
-<div class = "btn btn-light link-light mr-sm-5"><%= link_to "All", orders_path("All")%></div>
-<div class = "btn btn-light link-light mr-sm-5"><%= link_to "Ordered", orders_path("Ordered")%></div>
-<div class = "btn btn-light link-light mr-sm-5"><%= link_to "Cancelled", orders_path("Cancelled")%></div>
-<div class = "btn btn-light link-light mr-sm-5"><%= link_to "Completed", orders_path("Completed")%></div>
-<div class = "btn btn-light link-light mr-sm-5"><%= link_to "Paid", orders_path("Paid")%></div>
+<div class = "row justify-content-center m-3">
+  <%= link_to "All", orders_path(status: 'All'), class: "btn btn-primary mr-sm-5" %>
+  <%= link_to "Ordered", orders_path(status: 0), class: "btn btn-primary mr-sm-5" %>
+  <%= link_to "Paid", orders_path(status: 1), class: "btn btn-primary mr-sm-5" %>
+  <%= link_to "Cencelled", orders_path(status: 2), class: "btn btn-primary mr-sm-5" %>
+  <%= link_to "Completed", orders_path(status: 3), class: "btn btn-primary mr-sm-5" %>
 </div>
 <table class= "table">
   <thead class="thead-dark col-sm-3">
@@ -25,25 +24,24 @@
   <tbody>
     <% @orders.each do |order|%>
         <tr>
-            <td><%= order.user.name%></td>
-            <td><%= order.user.email%></td>
-            <td><%= link_to order.created_at.strftime("%F;  %T"), order_items_path(order_id: order.id), method: :GET, class: "btn btn-info" %></td>
-            <td><%= order.updated_at.strftime("%F;  %T")%></td>
-            <td id= 'status_field<%= order.id %>' ><%= order.order_type%></td>
-            <% if current_user.admin %> 
-                <td><div class="dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Status
-                  </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <%= link_to @status_name[0], edit_order_path(order,@status_name[0]), remote: true, method: :GET, class:"dropdown-item" %>
-                      <%= link_to @status_name[1], edit_order_path(order,@status_name[1]), remote: true,method: :GET, class:"dropdown-item" %>
-                      <%= link_to @status_name[2], edit_order_path(order,@status_name[2]), remote: true, method: :GET, class:"dropdown-item" %>
-                      <%= link_to @status_name[3], edit_order_path(order,@status_name[3]), remote: true, method: :GET, class:"dropdown-item" %>
-                    </div>
-                </div></td>
-              <% end %>
-           
+          <td><%= order.user.name%></td>
+          <td><%= order.user.email%></td>
+          <td><%= link_to order.created_at.strftime("%F;  %T"), order_items_path(order_id: order.id), method: :GET, class: "btn btn-info" %></td>
+          <td><%= order.updated_at.strftime("%F;  %T")%></td>
+          <td id= 'status_field<%= order.id %>' ><%= order.order_type%></td>
+          <% if current_user.admin %> 
+            <td><div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Status
+              </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <%= link_to 'Ordered', edit_order_path(order, status: 'Ordered'), remote: true, method: :GET, class:"dropdown-item" %>
+                  <%= link_to 'Paid', edit_order_path(order, status: 'Paid'), remote: true,method: :GET, class:"dropdown-item" %>
+                  <%= link_to 'Cencelled', edit_order_path(order, status: 'Cencelled'), remote: true, method: :GET, class:"dropdown-item" %>
+                  <%= link_to 'Completed', edit_order_path(order, status: 'Completed'), remote: true, method: :GET, class:"dropdown-item" %>
+                </div>
+            </div></td>
+          <% end %> 
         </tr>
     <%end%>
   </tbody>
