@@ -2,7 +2,7 @@
 
 class OrdersController < ApplicationController
   include OrderHelper
-  
+
   before_action :find_order, only: %i[show edit]
 
   def index
