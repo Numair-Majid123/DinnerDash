@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 class Order < ApplicationRecord
-  validates :order_type, presence: true
+  has_many :order_items, dependent: :destroy
+  has_many :items, through: :order_items
 
   belongs_to :user
 
-  has_many :order_items, dependent: :destroy
-  has_many :items, through: :order_items
+  validates :order_type, presence: true
 
   default_scope { order(created_at: :desc) }
 

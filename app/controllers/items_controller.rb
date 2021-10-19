@@ -5,14 +5,14 @@ class ItemsController < ApplicationController
   include ItemHelper
 
   before_action :find_item, only: %i[show destroy edit update]
-
+  before_action :find_categories, only: %i[new edit]
   before_action only: %i[destroy update edit] do
     authorized_user(@item)
   end
 
   def index
     @items = finding_order
-    @cate = find_category.name if params[:category_id] && !find_category.nil?
+    @category = find_category.name if params[:category_id] && !find_category.nil?
     redirect_to order_path(id: params[:order_id]) if params[:order_id]
   end
 
@@ -35,9 +35,9 @@ class ItemsController < ApplicationController
   def show; end
 
   def edit
-    return unless params[:format] == '1' || params[:format] == '0'
+    return unless params[:status] == '1' || params[:status] == '0'
 
-    @item.status = params[:format]
+    @item.status = params[:status].to_i
     redirect_back(fallback_location: root_path) if @item.save
   end
 
@@ -51,7 +51,11 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    @item.destroy!
+    if @item.destroy!
+      flash[:notice] = 'Item was deleted successfully.'
+    else
+      flash[:alert] = 'Item was not deleted successfully.'
+    end
     redirect_to items_path
   end
 
@@ -77,6 +81,10 @@ class ItemsController < ApplicationController
 
   def find_category
     Category.find(params[:category_id])
+  end
+
+  def find_categories
+    @categories = Category.all.collect { |x| [x.name, x.id] }
   end
 
   def item_for_category

@@ -13,7 +13,7 @@ class OrdersController < ApplicationController
     @cart.each do |item|
       session[:hash].merge!(item.id => 1)
     end
-    total_calculate
+    find_total
   end
 
   def create
@@ -26,9 +26,7 @@ class OrdersController < ApplicationController
     end
   end
 
-  def show
-    @items = @order.items
-  end
+  def show;  end
 
   def edit
     @order.order_type = params[:status]
@@ -41,21 +39,21 @@ class OrdersController < ApplicationController
 
   def destroy; end
 
-  def decrease_quantity
+  def decrease
     session[:hash][params[:id]] -= 1 if session[:hash][params[:id]] > 1
     @price = Item.find(params[:id]).price
-    total_calculate
+    find_total
   end
 
-  def increase_quantity
+  def increase
     session[:hash][params[:id]] += 1 if session[:hash][params[:id]] < 100
     @price = Item.find(params[:id]).price
-    total_calculate
+    find_total
   end
 
   private
 
-  def total_calculate
+  def find_total
     @total = 0
     @cart.each do |item|
       @sub_total = item.price.to_i * session[:hash][item.id.to_s].to_i

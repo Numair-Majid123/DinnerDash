@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  include Pundit
+
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :initialize_session
   before_action :load_cart
 
-  include Pundit
-
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   protected

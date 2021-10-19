@@ -19,8 +19,8 @@ Rails.application.routes.draw do
   resources :orders do
     resources :items
     member do
-      get :increase_quantity
-      get :decrease_quantity
+      get :increase
+      get :decrease
     end
   end
 

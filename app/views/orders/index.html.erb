@@ -26,12 +26,12 @@
         <tr>
           <td><%= order.user.name%></td>
           <td><%= order.user.email%></td>
-          <td><%= link_to order.created_at.strftime("%F;  %T"), order_items_path(order_id: order.id), method: :GET, class: "btn btn-info" %></td>
-          <td><%= order.updated_at.strftime("%F;  %T")%></td>
+          <td><%= link_to order.created_at.strftime("%F; %T"), order_items_path(order_id: order.id), method: :GET, class: "btn btn-info" %></td>
+          <td><%= order.updated_at.strftime("%F; %T")%></td>
           <td id= 'status_field<%= order.id %>' ><%= order.order_type%></td>
           <% if current_user.admin %> 
             <td><div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button class = "btn btn-secondary dropdown-toggle" type = "button" id = "dropdownMenuButton" data-toggle = "dropdown" aria-haspopup = "true" aria-expanded = "false">
                 Status
               </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

@@ -24,7 +24,7 @@
             <% if user_signed_in? %>
               <% if current_user.admin %>
                 <td><%= link_to 'Edit', edit_category_path(category),class:"btn btn-secondary" %> &nbsp &nbsp
-                <%= link_to 'Delete', category_path(:id => category.id), method: :delete, data: {confirm: "Are you sure?"},class:"btn btn-secondary"  %></td>
+                <%= link_to 'Delete', category_path(id: category.id), method: :delete, data: {confirm: "Are you sure?"},class:"btn btn-secondary"  %></td>
                 <% end %>
             <% end %>
         </tr>

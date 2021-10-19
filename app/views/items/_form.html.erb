@@ -4,28 +4,28 @@
 
     <div class="mb-3">
       <b><%= f.label :name %></b><br />
-      <%= f.text_field :name, autocomplete: "Enter Name", class: "form-control" %>
+      <%= f.text_field :name, required: true, autocomplete: "Enter Name", class: "form-control" %>
     </div>
 
     <div class="mb-3">
       <b><%= f.label :description %></b><br />
-      <%= f.text_area :description, autocomplete: "Enter Description", class: "form-control" %>
+      <%= f.text_area :description, required: true, autocomplete: "Enter Description", class: "form-control" %>
     </div>
 
     <div class="mb-3">
       <b><%= f.label :price %></b><br />
-      <%= f.number_field :price, autocomplete: "Enter price", class: "form-control" %>
+      <%= f.number_field :price, min: 0, required: true, autocomplete: "Enter price", class: "form-control" %>
     </div>
 
     <div class="mb-3">
       <b><%= f.label :status %></b><br />
-      <%= f.number_field :status,min: 0, max: 1, autocomplete: "Status", class: "form-control" %>
+      <%= f.number_field :status, min: 0, max: 1, required: true, autocomplete: "Status", class: "form-control" %>
     </div>
 
     <%= f.fields_for :category_item do |p| %>
       <div class="mb-3">
         <b><%= f.label "Category" %></b><br>
-        <%= f.select :category_ids, Category.all.collect { |x| [x.name, x.id] }, {}, multiple: true, class: "form-control" %>
+        <%= f.select :category_ids, @categories, {}, multiple: true, class: "form-control" %>
       </div>
     <% end %>
     <div class = "mb-3">

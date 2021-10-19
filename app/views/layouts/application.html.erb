@@ -17,9 +17,7 @@
     <% if alert %>
       <p class="alert alert-danger"><%= alert %></p>
     <% end %>
-    <% if user_signed_in? %> 
-      &nbsp <h5 class="text-right mr-5"><b><%= current_user.display_name%></h5></b>
-    <% end %>
+      &nbsp <h5 class="text-right mr-5"><b><%= current_user&.display_name%></h5></b>
     <%= yield %>
   </body>
 </html>
