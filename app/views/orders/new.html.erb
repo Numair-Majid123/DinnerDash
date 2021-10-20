@@ -17,9 +17,9 @@
     <tr id = "record<%= item.id %>">
       <td><%= item.name %></td>
       <td><%= item.price%></td>
-      <td><%= link_to '-', decrease_item_path(item), method: :GET, class: "btn btn-success",remote: true %>
+      <td><%= link_to '-', update_quantity_item_path(item, button_name: 'decrease'), method: :GET, class: "btn btn-success",remote: true %>
         <span id = 'quantity_value<%= item.id %>'><%= session[:hash][item.id.to_s]%></span>
-        <%= link_to '+', increase_item_path(item), method: :GET, class: "btn btn-success",remote: true%></td>
+        <%= link_to '+', update_quantity_item_path(item, button_name: 'increase'), method: :GET, class: "btn btn-success",remote: true%></td>
       <td id = 'sub_total<%= item.id %>'><%= item.price*session[:hash][item.id.to_s].to_i%></td>
       <td><%= link_to 'Show ', item_path(:id => item.id), class: "btn btn-info" %></td>
     </tr>

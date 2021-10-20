@@ -60,16 +60,22 @@ class ItemsController < ApplicationController
     redirect_to items_path
   end
 
-  def decrease
-    session[:hash][params[:id]] -= 1 if session[:hash][params[:id]] > 1
+  def update_quantity
+    if params[:button_name] == 'decrease'
+      decrease
+    else
+      increase
+    end
     @price = Item.find(params[:id]).price
     find_total
   end
 
+  def decrease
+    session[:hash][params[:id]] -= 1 if session[:hash][params[:id]] > 1
+  end
+
   def increase
     session[:hash][params[:id]] += 1 if session[:hash][params[:id]] < 100
-    @price = Item.find(params[:id]).price
-    find_total
   end
 
   private

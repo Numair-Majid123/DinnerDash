@@ -9,8 +9,7 @@ Rails.application.routes.draw do
       post :add_to_cart
       delete :remove_from_cart
       delete :delete_association
-      get :increase
-      get :decrease
+      get :update_quantity
     end
   end
 
