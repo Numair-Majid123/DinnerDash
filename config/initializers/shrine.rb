@@ -3,9 +3,9 @@
 require 'cloudinary'
 require 'shrine/storage/cloudinary'
 Cloudinary.config(
-  cloud_name: 'numair-majid123',
-  api_key: '316945685729473',
-  api_secret: 'Si26VqoPK2M9ChC6iGl1nhcU8b8'
+  cloud_name: ENV['CLOUD_NAME'],
+  api_key: ENV['CLOUD_API_KEY'],
+  api_secret: ENV['CLOUD_API_SECRET']
 )
 Shrine.storages = {
   cache: Shrine::Storage::Cloudinary.new(prefix: 'DinnerDash/cache'), # for direct uploads
