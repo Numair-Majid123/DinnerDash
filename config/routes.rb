@@ -1,27 +1,25 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  root to: 'items#index'
-  devise_for :users, controllers: {
-    sessions: 'users/sessions'
-  }
+  root 'items#index'
+  devise_for :users
 
   resources :items do
-    post :add_to_cart
-    delete :remove_from_cart
-    delete :delete_association
-  end
-
-  resources :categories do
-    resources :items, shallow: true
-  end
-
-  resources :orders do
-    resources :items
     member do
+      post :add_to_cart
+      delete :remove_from_cart
+      delete :delete_association
       get :increase
       get :decrease
     end
+  end
+
+  resources :categories do
+    resources :items, only: %i[index]
+  end
+
+  resources :orders do
+    resources :items, only: %i[index]
   end
 
   get '*path', to: 'orders#routes_excaption'

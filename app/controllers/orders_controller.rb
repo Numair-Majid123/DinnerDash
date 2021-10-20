@@ -2,6 +2,7 @@
 
 class OrdersController < ApplicationController
   include OrderHelper
+  include CalculateTotal
 
   before_action :find_order, only: %i[show edit]
 
@@ -26,7 +27,7 @@ class OrdersController < ApplicationController
     end
   end
 
-  def show;  end
+  def show; end
 
   def edit
     @order.order_type = params[:status]
@@ -39,27 +40,7 @@ class OrdersController < ApplicationController
 
   def destroy; end
 
-  def decrease
-    session[:hash][params[:id]] -= 1 if session[:hash][params[:id]] > 1
-    @price = Item.find(params[:id]).price
-    find_total
-  end
-
-  def increase
-    session[:hash][params[:id]] += 1 if session[:hash][params[:id]] < 100
-    @price = Item.find(params[:id]).price
-    find_total
-  end
-
   private
-
-  def find_total
-    @total = 0
-    @cart.each do |item|
-      @sub_total = item.price.to_i * session[:hash][item.id.to_s].to_i
-      @total += @sub_total
-    end
-  end
 
   def create_for_signed_in
     @order = Order.new

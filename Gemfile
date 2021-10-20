@@ -53,19 +53,17 @@ group :development do
 end
 
 group :test do
-  # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
-  gem 'selenium-webdriver'
-  # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
+  gem 'selenium-webdriver'
 end
 
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'activestorage-cloudinary-service'
 gem 'bootstrap', '~> 4.1.1'
 gem 'bootstrap_form', '~> 4.0'
 gem 'cloudinary', require: false
 gem 'devise'
+gem 'figaro'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
@@ -74,5 +72,5 @@ group :development, :test do
   gem 'rubocop'
   gem 'rubocop-performance'
   gem 'rubocop-rails'
-  gem 'rubocop-rspec' # or gem 'rubocop-rspec' depending on your test suite
+  gem 'rubocop-rspec'
 end

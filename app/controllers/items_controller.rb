@@ -3,6 +3,7 @@
 class ItemsController < ApplicationController
   include AuthorizedPolicy
   include ItemHelper
+  include CalculateTotal
 
   before_action :find_item, only: %i[show destroy edit update]
   before_action :find_categories, only: %i[new edit]
@@ -57,6 +58,18 @@ class ItemsController < ApplicationController
       flash[:alert] = 'Item was not deleted successfully.'
     end
     redirect_to items_path
+  end
+
+  def decrease
+    session[:hash][params[:id]] -= 1 if session[:hash][params[:id]] > 1
+    @price = Item.find(params[:id]).price
+    find_total
+  end
+
+  def increase
+    session[:hash][params[:id]] += 1 if session[:hash][params[:id]] < 100
+    @price = Item.find(params[:id]).price
+    find_total
   end
 
   private
