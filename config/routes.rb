@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       post :add_to_cart
       delete :remove_from_cart
       delete :delete_association
-      get :update_quantity
+      put :update_quantity
     end
   end
 
@@ -21,6 +21,6 @@ Rails.application.routes.draw do
     resources :items, only: %i[index]
   end
 
-  get '*path', to: 'orders#routes_excaption'
+  get '*path', to: 'orders#routes_exception'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

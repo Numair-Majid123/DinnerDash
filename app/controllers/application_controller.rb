@@ -24,7 +24,6 @@ class ApplicationController < ActionController::Base
   def initialize_session
     session[:cart] ||= []
     session[:hash] ||= {}
-    session[:hash].default = 1
   end
 
   def load_cart

@@ -49,13 +49,6 @@ class CategoriesController < ApplicationController
     redirect_to categories_path
   end
 
-  def check_sign_in
-    return if user_signed_in?
-
-    flash[:alert] = 'Not Authorized...'
-    redirect_to categories_path
-  end
-
   private
 
   def catergory_params
