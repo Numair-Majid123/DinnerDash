@@ -8,26 +8,22 @@
     <tr>
       <th>Category</th>
       <th>Detail</th>
-      <% if user_signed_in? %>
-        <% if current_user.admin %>
-          <th>Action</th>
-        <% end %>
+      <% if current_user&.admin %>
+        <th>Action</th>
       <% end %>
     </tr>
   </thead>
 
   <tbody>
     <% @categories.each do |category|%>
-        <tr>
-            <td><%= category.name%></td>
-            <td><%= link_to 'Show ', category_items_path(category_id: category.id), class: "btn btn-info" %></td>
-            <% if user_signed_in? %>
-              <% if current_user.admin %>
-                <td><%= link_to 'Edit', edit_category_path(category),class:"btn btn-secondary" %> &nbsp &nbsp
-                <%= link_to 'Delete', category_path(id: category.id), method: :delete, data: {confirm: "Are you sure?"},class:"btn btn-secondary"  %></td>
-                <% end %>
-            <% end %>
-        </tr>
+      <tr>
+        <td><%= category.name%></td>
+        <td><%= link_to 'Show ', category_items_path(category_id: category.id), class: "btn btn-info" %></td>
+        <% if current_user&.admin %>
+          <td><%= link_to 'Edit', edit_category_path(category),class:"btn btn-secondary" %> &nbsp &nbsp
+          <%= link_to 'Delete', category_path(id: category.id), method: :delete, data: {confirm: "Are you sure?"},class:"btn btn-secondary"  %></td>
+        <% end %>
+      </tr>
     <%end%>
   </tbody>
 </table>

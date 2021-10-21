@@ -11,11 +11,11 @@
   </thead>
 
   <tbody>
-        <tr>
-            <td><%= @item.name%></td>
-            <td><%= @item.description%></td>
-            <td><%= @item.price%></td>
-        </tr>
+    <tr>
+      <td><%= @item.name%></td>
+      <td><%= @item.description%></td>
+      <td><%= @item.price%></td>   
+    </tr>
   </tbody>
 </table>
 
@@ -23,5 +23,14 @@
 
   <% if @item.image_url %>
     <%= cl_image_tag(@item.image_url, width: 400)%>
- <% end %>
+  <% end %>
+  <div class = "m-3">
+    <% if @item.status == 1%>
+      <%= button_to "Remove from cart", remove_from_cart_item_path(@item), method: :delete, class: "btn btn-danger #{"none" unless @cart.include?(@item)}", remote: true, id: "Remove#{@item.id}" %>
+
+      <%= button_to "Add to cart", add_to_cart_item_path(@item),class:"btn btn-success #{"none" if @cart.include?(@item)}", id: "Create#{@item.id}", remote: true %>
+    <% else %>
+      Out of Stock
+    <% end %> 
+  </div>
 </div>

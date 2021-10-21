@@ -24,27 +24,27 @@
 
   <tbody>
     <% @orders.each do |order|%>
-        <tr>
-          <td><%= order.user.name%></td>
-          <td><%= order.user.email%></td>
-          <td><%= order.created_at.strftime("%F; %T")%></td>
-          <td><%= order.updated_at.strftime("%F; %T")%></td>
-          <td><%= link_to 'Show', order_items_path(order_id: order.id), method: :GET, class: "btn btn-info" %> </td>
-          <td id= 'status_field<%= order.id %>' ><%= order.order_type%></td>
-          <% if current_user.admin %> 
-            <td><div class="dropdown">
-              <button class = "btn btn-secondary dropdown-toggle" type = "button" id = "dropdownMenuButton" data-toggle = "dropdown" aria-haspopup = "true" aria-expanded = "false">
-                Status
-              </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <%= link_to 'Ordered', edit_order_path(order, status: 'Ordered'), remote: true, method: :GET, class:"dropdown-item" %>
-                  <%= link_to 'Paid', edit_order_path(order, status: 'Paid'), remote: true,method: :GET, class:"dropdown-item" %>
-                  <%= link_to 'Cencelled', edit_order_path(order, status: 'Cencelled'), remote: true, method: :GET, class:"dropdown-item" %>
-                  <%= link_to 'Completed', edit_order_path(order, status: 'Completed'), remote: true, method: :GET, class:"dropdown-item" %>
-                </div>
-            </div></td>
-          <% end %> 
-        </tr>
+      <tr>
+        <td><%= order.user.name%></td>
+        <td><%= order.user.email%></td>
+        <td><%= order.created_at.strftime("%F; %T")%></td>
+        <td><%= order.updated_at.strftime("%F; %T")%></td>
+        <td><%= link_to 'Show', order_items_path(order_id: order.id), method: :GET, class: "btn btn-info" %> </td>
+        <td id= 'status_field<%= order.id %>' ><%= order.order_type%></td>
+        <% if current_user.admin %> 
+          <td><div class="dropdown">
+            <button class = "btn btn-secondary dropdown-toggle" type = "button" id = "dropdownMenuButton" data-toggle = "dropdown" aria-haspopup = "true" aria-expanded = "false">
+              Status
+            </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <%= link_to 'Ordered', edit_order_path(order, status: 'Ordered'), remote: true, method: :GET, class:"dropdown-item" %>
+                <%= link_to 'Paid', edit_order_path(order, status: 'Paid'), remote: true,method: :GET, class:"dropdown-item" %>
+                <%= link_to 'Cencelled', edit_order_path(order, status: 'Cencelled'), remote: true, method: :GET, class:"dropdown-item" %>
+                <%= link_to 'Completed', edit_order_path(order, status: 'Completed'), remote: true, method: :GET, class:"dropdown-item" %>
+              </div>
+          </div></td>
+        <% end %> 
+      </tr>
     <%end%>
   </tbody>
 </table>

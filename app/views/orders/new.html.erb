@@ -12,7 +12,6 @@
   </thead>
 
   <tbody>
-
     <% @cart.each do |item| %>
     <tr id = "record<%= item.id %>">
       <td><%= item.name %></td>
@@ -23,7 +22,6 @@
       <td id = 'sub_total<%= item.id %>'><%= item.price*session[:hash][item.id.to_s].to_i%></td>
       <td><%= link_to 'Show ', item_path(:id => item.id), class: "btn btn-info" %></td>
     </tr>
-  
     <% end %>
   </tbody>
 </table>
@@ -31,7 +29,7 @@
 
 <% if @cart.present? %>
   <h4>
-      Your total bill is: <b><span id = "total"><%= @total %></span></b>    
-      <%= button_to "Check out", orders_path(@cart), class: "btn btn-primary mt-3" %>
+    Your total bill is: <b><span id = "total"><%= @total %></span></b>    
+    <%= button_to "Check out", orders_path(@cart), class: "btn btn-primary mt-3" %>
   </h4>
 <% end %>

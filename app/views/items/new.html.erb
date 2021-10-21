@@ -1,7 +1,6 @@
 <% if policy(@item).admin %>
-<h3 class = "center_class">Create a new Item</h3>
-
-<%= render 'form' %>
+  <h3 class = "center_class">Create a new Item</h3>
+  <%= render 'form' %>
 <% else %>
-<%flash[:alert] = 'Not Authorized...' %>
+  <%flash[:alert] = 'Not Authorized...' %>
 <% end %>

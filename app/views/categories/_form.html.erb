@@ -1,17 +1,16 @@
 <div class="col-md-6 col-md-offset-3 center_class">
-<%= form_with(model: @category, local: true) do |f| %>
+  <%= form_with(model: @category, local: true) do |f| %>
 
 
-  <div class="mb-3">
-    <b><%= f.label :name %></b><br />
-    <%= f.text_field :name, autocomplete: "Enter Name", required: true, class: "form-control" %>
-  </div>
+    <div class="mb-3">
+      <b><%= f.label :name %></b><br />
+      <%= f.text_field :name, autocomplete: "Enter Name", required: true, class: "form-control" %>
+    </div>
 
-  <div class="actions">
-    <%= f.submit "Submit", class: 'btn btn-primary' %>
-  </div>
-
-<% end %>
+    <div class="actions">
+      <%= f.submit "Submit", class: 'btn btn-primary' %>
+    </div>
+  <% end %>
 </div>
 
 <%= link_to 'back', categories_path, class: "btn btn-dark mr-sm-3" %>
