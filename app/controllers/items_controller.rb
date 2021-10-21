@@ -26,7 +26,7 @@ class ItemsController < ApplicationController
     authorized_user(@item)
     if @item.save
       flash[:success] = 'Item created successfully'
-      redirect_to items_path
+      redirect_to item_path(@item)
     else
       flash[:error] = 'Item not created successfully'
       render items_path
@@ -45,7 +45,7 @@ class ItemsController < ApplicationController
   def update
     if @item.update(item_params)
       flash[:notice] = 'Item was updated successfully.'
-      redirect_to items_path
+      redirect_to item_path(@item)
     else
       render 'edit'
     end

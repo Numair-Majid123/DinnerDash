@@ -3,7 +3,7 @@
 <% end %>
 
 <% if current_user&.admin %>
-  <h4 class="text-center m-3"><%= link_to 'Create new item', new_item_path %></h4>
+  <h4><%= link_to 'Create new item', new_item_path, class: 'btn btn-primary' %></h4>
 <% end %>
 
 <table class= "table">

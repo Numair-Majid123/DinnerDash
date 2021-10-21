@@ -1,6 +1,6 @@
 <% if user_signed_in? %>
   <% if current_user.admin %>
-    <h4 class="text-center"><%= link_to 'Create new category', new_category_path %></h4>
+    <h4><%= link_to 'Create new category', new_category_path, class: 'btn btn-primary' %></h4>
   <% end %>
 <% end %>
 <table class = "table">

@@ -25,7 +25,7 @@
         <td><%= @quantity = order_item.quantity %>
         <td><%= @subtotal = order_item.item.price*@quantity %>
         <% @total += @subtotal%>
-        <td><%= link_to 'Show', order_item_path(id: order_item.item.id, order_id: @order.id), class: "btn btn-info" %></td>
+        <td><%= link_to 'Show', item_path(id: order_item.item.id, order_id: @order.id), class: "btn btn-info" %></td>
       </tr>
     <%end%>
   </tbody>
