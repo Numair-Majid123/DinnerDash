@@ -38,8 +38,6 @@ class OrdersController < ApplicationController
     end
   end
 
-  def destroy; end
-
   private
 
   def create_for_signed_in

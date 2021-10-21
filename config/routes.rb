@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     resources :items, only: %i[index]
   end
 
-  resources :orders, except: %i[update] do
+  resources :orders, except: %i[update destroy] do
     resources :items, only: %i[index]
   end
 
