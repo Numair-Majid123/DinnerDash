@@ -21,7 +21,7 @@ class ApplicationPolicy
   end
 
   def new?
-    @user.admin
+    @user&.admin
   end
 
   def update?

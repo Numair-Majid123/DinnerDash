@@ -6,11 +6,11 @@ class Order < ApplicationRecord
 
   belongs_to :user
 
-  validates :order_type, presence: true
+  validates :order_status, presence: true
 
   default_scope { order(created_at: :desc) }
 
-  enum order_type: {
+  enum order_status: {
     Ordered: 0,
     Paid: 1,
     Cencelled: 2,

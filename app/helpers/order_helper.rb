@@ -20,9 +20,9 @@ module OrderHelper
 
   def other_filtered_orders
     if current_user.admin
-      Order.where('order_type = ?', params[:status])
+      Order.where('order_status = ?', params[:status])
     else
-      Order.where('user_id = ? AND order_type = ?', current_user.id, params[:status])
+      Order.where('user_id = ? AND order_status = ?', current_user.id, params[:status])
     end
   end
 end

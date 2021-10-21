@@ -10,7 +10,9 @@ class Item < ApplicationRecord
   has_many :orders, through: :order_items
 
   validates :name, :description, :price, :status, presence: true
-  validates :price, numericality: { greater_than_or_equal_to: 1 }
+  validates :name, length: { minimum: 2, maximum: 32 }
+  validates :description, length: { minimum: 5, maximum: 500 }
+  validates :price, numericality: { in: [50_000, 1] }
   validates :status, inclusion: { in: [1, 0] }
 
   accepts_nested_attributes_for :categories

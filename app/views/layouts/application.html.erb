@@ -17,7 +17,11 @@
     <% if alert %>
       <p class="alert alert-danger"><%= alert %></p>
     <% end %>
+    <% unless current_user&.display_name == '' %>
       &nbsp <h5 class="text-right mr-5"><b><%= current_user&.display_name%></h5></b>
+      <% else %>
+      &nbsp <h5 class="text-right mr-5"><b><%= current_user&.name%></h5></b>
+      <% end %>
     <%= yield %>
   </body>
 </html>

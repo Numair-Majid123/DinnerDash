@@ -30,7 +30,7 @@
         <td><%= order.created_at.strftime("%F; %T")%></td>
         <td><%= order.updated_at.strftime("%F; %T")%></td>
         <td><%= link_to 'Show', order_items_path(order_id: order.id), method: :GET, class: "btn btn-info" %> </td>
-        <td id= 'status_field<%= order.id %>' ><%= order.order_type%></td>
+        <td id= 'status_field<%= order.id %>' ><%= order.order_status%></td>
         <% if current_user.admin %> 
           <td><div class="dropdown">
             <button class = "btn btn-secondary dropdown-toggle" type = "button" id = "dropdownMenuButton" data-toggle = "dropdown" aria-haspopup = "true" aria-expanded = "false">

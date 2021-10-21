@@ -30,7 +30,7 @@ class OrdersController < ApplicationController
   def show; end
 
   def edit
-    @order.order_type = params[:status]
+    @order.order_status = params[:status]
     if @order.save
       flash[:success] = 'Order Updated successfully'
     else
@@ -42,13 +42,16 @@ class OrdersController < ApplicationController
 
   def create_for_signed_in
     @order = Order.new
-    @order.user_id = current_user.id
-    save_order
+    @order.transaction do
+      @order.user_id = current_user.id
+      save_order
+    end
   end
 
   def save_order
     @cart.each do |item|
       @order.order_items.new(item_id: item.id, quantity: session[:hash][item.id.to_s])
+
       if @order.save
         flash[:notice] = 'Order created successfully'
       else

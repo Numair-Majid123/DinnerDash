@@ -14,7 +14,7 @@
 
     <div class="mb-3">
       <b><%= f.label :price %></b><br />
-      <%= f.number_field :price, min: 0, required: true, autocomplete: "Enter price", class: "form-control" %>
+      <%= f.number_field :price, min: 0, max: 50000, required: true, autocomplete: "Enter price", class: "form-control" %>
     </div>
 
     <div class="mb-3">
@@ -25,7 +25,7 @@
     <%= f.fields_for :category_item do |p| %>
       <div class="mb-3">
         <b><%= f.label "Category" %></b><br>
-        <%= f.select :category_ids, @categories, {}, multiple: true, class: "form-control" %>
+        <%= f.select :category_ids, @categories, {}, required: true, multiple: true, class: "form-control" %>
       </div>
     <% end %>
     <div class = "mb-3">

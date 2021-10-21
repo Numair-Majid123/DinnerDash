@@ -12,7 +12,7 @@ Architecture and models
     • Category have many products and one product can belongs to many categories.
       
 Development
-    • A developer can under this project by understanding relationship between Models, follow of application by viewing routes.
+    • A developer can understand this project by understanding relationship between Models, follow of application by viewing routes.
     • A developer can test application by just start rails server and sign up to the project.
       
 Key Feature for Admin Role
