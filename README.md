@@ -14,43 +14,6 @@ Architecture and models
 Development
     • A developer can understand this project by understanding relationship between Models, follow of application by viewing routes.
     • A developer can test application by just start rails server and sign up to the project.
-      
-Key Feature for Admin Role
-    • Create item listings including a name, description, price, and upload a photo
-    • Modify existing items’ name, description, price, and photo
-    • Create named categories for items (eg: "Lahori Food")
-    • Assign items to categories or remove them from categories. Products can belong to more than one category.
-    • Retire a item from being sold, which hides it from browsing by any non-administrator
-    • the total number of orders by status
-    • links for each individual order
-    • filter orders to display by status type (for statuses "ordered", "paid", "cancelled", "completed")
-    • link to transition to a different status:
-    • link to "cancel" individual orders which are currently "ordered" or "paid"
-    • link to "mark as paid" orders which are "ordered"
-    • link to "mark as completed" individual orders which are currently "paid"
-      
-Key Feature for Unauthenticated user
-    • Browse all items
-    • Browse items by category
-    • Add an item to my cart
-    • View my cart
-    • Remove an item from my cart
-    • Increase the quantity of a item in my cart
-
-Key Feature for Simple user
-    • Do everything Unauthenticated Users can do except "log in"
-    • log out
-    • view their past orders with links to display each order
-    • on that order display page there are:
-    • items with quantity ordered and line-item subtotals
-    • links to each item description page
-    • the current status of the order
-    • order total price
-    • date/time order was submitted
-    • if completed or cancelled, display a timestamp when that action took place
-
-
-
 
 Things you may want to cover:
 
@@ -59,3 +22,24 @@ Things you may want to cover:
 * Rails version '5.2.6'
 
 * Install important Gem using Gemfile 
+
+* Database postgress version '13.4'
+
+Github clone link:
+ * https://github.com/Numair-Majid123/DinnerDash
+
+ Application.yml
+    CLOUD_NAME: 'test-cloud'
+    CLOUD_API_KEY: 'test-api-key'
+    CLOUD_API_SECRET: 'test-api-secret'
+
+    email_user_name: 'test-email'
+    email_password: 'test-password'
+
+Folder:
+    home/DinnerDash
+
+    rails s
+
+Link:
+    http://localhost:3000/

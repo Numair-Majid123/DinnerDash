@@ -12,7 +12,7 @@ class Item < ApplicationRecord
   validates :name, :description, :price, :status, presence: true
   validates :name, length: { minimum: 2, maximum: 32 }
   validates :description, length: { minimum: 5, maximum: 500 }
-  validates :price, numericality: { in: [50_000, 1] }
+  validates :price, numericality: { in: [100_000, 1] }
   validates :status, inclusion: { in: [1, 0] }
 
   accepts_nested_attributes_for :categories

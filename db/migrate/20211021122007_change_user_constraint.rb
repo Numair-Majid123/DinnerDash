@@ -4,8 +4,7 @@ class ChangeUserConstraint < ActiveRecord::Migration[5.2]
   def up
     change_table :users, bulk: true do |t|
       change_column t, :name, :string, null: false, limit: 32
-      change_column t, :display_name, :string, limit: 32
-      change_column t, :display_name, :string, null: true
+      change_column t, :display_name, :string, null: true, limit: 32
       change_column_default(t, :name, nil)
       change_column_default(t, :display_name, nil)
       change_column_default(t, :email, nil)
