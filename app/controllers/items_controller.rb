@@ -29,7 +29,7 @@ class ItemsController < ApplicationController
       flash[:notice] = 'Item created successfully'
       redirect_to item_path(@item)
     else
-      flash[:alert] = 'Item not created successfully'
+      flash[:alert] = error_message(@item)
       redirect_to items_path
     end
   end
@@ -48,7 +48,7 @@ class ItemsController < ApplicationController
       flash[:notice] = 'Item was updated successfully.'
       redirect_to item_path(@item)
     else
-      flash[:alert] = 'Item was not updated.'
+      flash[:alert] = error_message(@item)
       render 'edit'
     end
   end
@@ -57,7 +57,7 @@ class ItemsController < ApplicationController
     if @item.destroy
       flash[:notice] = 'Item was deleted successfully.'
     else
-      flash[:alert] = 'Item was not deleted.'
+      flash[:alert] = error_message(@item)
     end
     redirect_to items_path
   end

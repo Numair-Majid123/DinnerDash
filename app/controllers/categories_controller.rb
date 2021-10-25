@@ -24,7 +24,7 @@ class CategoriesController < ApplicationController
       flash[:notice] = 'Category created successfully'
       redirect_to categories_path
     else
-      flash[:error] = 'Category not created'
+      flash[:alert] = error_message(@category)
       render 'new'
     end
   end
@@ -36,7 +36,7 @@ class CategoriesController < ApplicationController
       flash[:notice] = 'Category was updated successfully.'
       redirect_to categories_path
     else
-      flash[:alert] = 'Category was not updated.'
+      flash[:alert] = error_message(@category)
       render 'edit'
     end
   end
@@ -45,7 +45,7 @@ class CategoriesController < ApplicationController
     if @category.destroy!
       flash[:notice] = 'Category was deleted successfully.'
     else
-      flash[:alert] = 'Category was not deleted.'
+      flash[:alert] = error_message(@category)
     end
     redirect_to categories_path
   end

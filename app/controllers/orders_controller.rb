@@ -34,7 +34,7 @@ class OrdersController < ApplicationController
     if @order.save
       flash[:notice] = 'Order Updated successfully'
     else
-      flash[:error] = 'Order was not updated successfully'
+      flash[:alert] = error_message(@order)
     end
   end
 
@@ -53,11 +53,10 @@ class OrdersController < ApplicationController
         @cart.each do |item|
           @order.order_items.create!(item_id: item.id, quantity: session[:hash][item.id.to_s])
         end
-        flash[:notice] = 'Order created successfully'
-      else
-        flash[:alert] = 'Order not created successfully'
       end
     end
+  rescue ActiveRecord::RecordInvalid => e
+    flash[:alert] = e
   end
 
   def find_order

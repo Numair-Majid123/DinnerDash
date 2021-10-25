@@ -49,4 +49,8 @@ class ApplicationController < ActionController::Base
     flash[:alert] = 'Record Not Found'
     redirect_to root_path
   end
+
+  def error_message(record)
+    record.errors.full_messages.join(', ')
+  end
 end

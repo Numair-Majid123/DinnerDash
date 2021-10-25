@@ -30,7 +30,7 @@
     <% end %>
     <div class = "mb-3">
       <%= f.label :image %>
-      <%= f.file_field :image, class: "btn btn-secondary", onchange: "validateFiles(this);", data: { max_file_size: 5.megabytes } %>
+      <%= f.file_field :image, class: "btn btn-secondary", onchange: "validateFiles(this);", data: { max_file_size: 5.megabytes }, accept: "image/*" %>
     </div>
 
     <div class="actions">

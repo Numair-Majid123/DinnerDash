@@ -4,7 +4,7 @@
   <%= link_to "All", orders_path(status: 'All'), class: "btn btn-primary mr-sm-5" %>
   <%= link_to "Ordered", orders_path(status: 0), class: "btn btn-primary mr-sm-5" %>
   <%= link_to "Paid", orders_path(status: 1), class: "btn btn-primary mr-sm-5" %>
-  <%= link_to "Cencelled", orders_path(status: 2), class: "btn btn-primary mr-sm-5" %>
+  <%= link_to "Cancelled", orders_path(status: 2), class: "btn btn-primary mr-sm-5" %>
   <%= link_to "Completed", orders_path(status: 3), class: "btn btn-primary mr-sm-5" %>
 </div>
 <table class= "table">
@@ -30,7 +30,7 @@
         <td><%= order.created_at.strftime("%F; %T")%></td>
         <td><%= order.updated_at.strftime("%F; %T")%></td>
         <td><%= link_to 'Show', order_items_path(order_id: order.id), method: :GET, class: "btn btn-info" %> </td>
-        <td id= 'status_field<%= order.id %>' ><%= order.order_status%></td>
+        <td id= 'status_field<%=order.id%>' ><%= order.order_status%></td>
         <% if current_user.admin %> 
           <td><div class="dropdown">
             <button class = "btn btn-secondary dropdown-toggle" type = "button" id = "dropdownMenuButton" data-toggle = "dropdown" aria-haspopup = "true" aria-expanded = "false">
@@ -39,7 +39,7 @@
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <%= button_to 'Ordered', update_status_order_path(order, status: 'Ordered'), remote: true, class:"dropdown-item" %>
                 <%= button_to 'Paid', update_status_order_path(order, status: 'Paid'), remote: true, class:"dropdown-item" %>
-                <%= button_to 'Cencelled', update_status_order_path(order, status: 'Cencelled'), remote: true, class:"dropdown-item" %>
+                <%= button_to 'Cancelled', update_status_order_path(order, status: 'Cancelled'), remote: true, class:"dropdown-item" %>
                 <%= button_to 'Completed', update_status_order_path(order, status: 'Completed'), remote: true, class:"dropdown-item" %>
               </div>
           </div></td>
