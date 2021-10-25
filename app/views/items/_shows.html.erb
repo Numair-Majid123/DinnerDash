@@ -9,10 +9,11 @@
 <table class= "table">
   <thead class="thead-dark col-sm-3">
     <tr>
+      <th>Image</td>
       <th>Items Name</th>
       <th>Detail</th>
       <th>Shopping cart</th>
-        <% if current_user&.admin %>
+        <% if current_user&.admin %> 
           <th>Stock Status</th>
           <th colspan="2">Action</th>
         <% end %>
@@ -22,7 +23,13 @@
   <tbody>
     <% @items.each do |item|%>
         <tr>
-          <td><%= item.name%></td>
+          <td><% if item.image_url %>
+                <%= cl_image_tag(item.image_url, width: 200)%>
+              <% else %>
+                <%= image_tag('default.png', width: 200)%>
+              <% end %>
+          </td>
+          <td><b><%= item.name%></b></td>
           <td><%= link_to 'Show item', item_path(id: item.id), class: "btn btn-info" %></td>
           <% if item.status == 1%>
             <td><%= button_to "Remove from cart", remove_from_cart_item_path(item), method: :delete, class: "btn btn-danger #{"none" unless @cart.include?(item)}", remote: true, id: "Remove#{item.id}" %>
@@ -34,15 +41,16 @@
           <% if current_user&.admin %>
             <td><div class="dropdown">
               <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <%= item.status%>
+                Availability
               </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <%= link_to 0, edit_item_path(item, status: 0), method: :GET, class:"dropdown-item" %>
-                  <%= link_to 1, edit_item_path(item, status: 1), method: :GET, class:"dropdown-item" %>
+                  <%= link_to 'Out Of Stock', edit_item_path(item, status: 0), method: :GET, class:"dropdown-item" %>
+                  <%= link_to 'Available', edit_item_path(item, status: 1), method: :GET, class:"dropdown-item" %>
                 </div>
-            </div></td>
+              </div>
+            </td>
             <td><%= link_to 'Edit item', edit_item_path(item),class:"btn btn-secondary" %> &nbsp &nbsp
-            <%= link_to 'Delete item', item_path(id: item.id), method: :delete, data: {confirm: "Are you sure?"},class:"btn btn-secondary" %></td>
+                <%= link_to 'Delete item', item_path(id: item.id), method: :delete, data: {confirm: "Are you sure?"},class:"btn btn-secondary" %></td>
             <% if params[:category_id]%>
               <td><%= link_to "Remove from Category", delete_association_item_path(item, category_id: params[:category_id]), method: :delete, class:"btn btn-danger" %></td>
             <% end %>
@@ -51,3 +59,6 @@
     <%end%>
   </tbody>
 </table>
+<div class = 'paginate_style'>
+  <%= paginate @items%>
+</div>

@@ -13,8 +13,12 @@ Category.create!(name: 'Local Food')
 Category.create!(name: 'Drinks')
 Category.create!(name: 'Ice Cream')
 
-Item.create!(name: 'Biryani', description: '1 Plate', price: 100, status: 1)
-Item.create!(name: 'Chicken Karahi', description: '1 Plate', price: 200, status: 1)
-Item.create!(name: 'Meef biryani', description: '1 Plate', price: 300, status: 0)
-Item.create!(name: 'Mutton Biryani', description: '1 Plate', price: 300, status: 1)
-Item.create!(name: 'Sindhi Biryani', description: '1 Plate', price: 150, status: 0)
+uploader = ImageUploader.new(:cache)
+file = File.new(Rails.root.join('app/assets/images/default.png'))
+uploaded_file = uploader.upload(file)
+Item.create!(name: 'test Biryani', description: '1 Plate picture', price: 150, status: 0,
+             image_data: uploaded_file.to_json)
+
+file = File.new(Rails.root.join('app/assets/images/Fish-Dish.jpeg'))
+uploaded_file = uploader.upload(file)
+Item.create!(name: 'Karhai', description: 'karahi', price: 500, status: 1, image_data: uploaded_file.to_json)

@@ -17,4 +17,12 @@ module ItemHelper
     session[:cart].delete(params[:id].to_i)
     redirect_back(fallback_location: root_path)
   end
+
+  def decrease
+    session[:hash][params[:id]] -= 1 if session[:hash][params[:id]] > 1
+  end
+
+  def increase
+    session[:hash][params[:id]] += 1 if session[:hash][params[:id]] < 100
+  end
 end

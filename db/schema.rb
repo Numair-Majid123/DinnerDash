@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 2021_10_21_152157) do
 
   create_table "items", force: :cascade do |t|
     t.string "name", limit: 32, null: false
-    t.decimal "price", precision: 5, scale: 1, null: false
+    t.decimal "price", precision: 6, scale: 1, null: false
     t.text "description", null: false
     t.integer "status", default: 1, null: false
     t.datetime "created_at", null: false

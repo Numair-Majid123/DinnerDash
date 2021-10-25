@@ -37,10 +37,10 @@
               Status
             </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <%= link_to 'Ordered', edit_order_path(order, status: 'Ordered'), remote: true, method: :GET, class:"dropdown-item" %>
-                <%= link_to 'Paid', edit_order_path(order, status: 'Paid'), remote: true,method: :GET, class:"dropdown-item" %>
-                <%= link_to 'Cencelled', edit_order_path(order, status: 'Cencelled'), remote: true, method: :GET, class:"dropdown-item" %>
-                <%= link_to 'Completed', edit_order_path(order, status: 'Completed'), remote: true, method: :GET, class:"dropdown-item" %>
+                <%= button_to 'Ordered', update_status_order_path(order, status: 'Ordered'), remote: true, class:"dropdown-item" %>
+                <%= button_to 'Paid', update_status_order_path(order, status: 'Paid'), remote: true, class:"dropdown-item" %>
+                <%= button_to 'Cencelled', update_status_order_path(order, status: 'Cencelled'), remote: true, class:"dropdown-item" %>
+                <%= button_to 'Completed', update_status_order_path(order, status: 'Completed'), remote: true, class:"dropdown-item" %>
               </div>
           </div></td>
         <% end %> 
@@ -48,3 +48,6 @@
     <%end%>
   </tbody>
 </table>
+<div class = 'paginate_style'>
+<%= paginate @orders%>
+</div>

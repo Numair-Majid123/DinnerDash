@@ -12,7 +12,7 @@ class ItemsController < ApplicationController
   end
 
   def index
-    @items = finding_order
+    @items = finding_items
     @category = find_category.name if params[:category_id] && !find_category.nil?
     redirect_to order_path(id: params[:order_id]) if params[:order_id]
   end
@@ -24,12 +24,13 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     authorized_user(@item)
+    set_status
     if @item.save
-      flash[:success] = 'Item created successfully'
+      flash[:notice] = 'Item created successfully'
       redirect_to item_path(@item)
     else
-      flash[:error] = 'Item not created successfully'
-      render items_path
+      flash[:alert] = 'Item not created successfully'
+      redirect_to items_path
     end
   end
 
@@ -47,15 +48,16 @@ class ItemsController < ApplicationController
       flash[:notice] = 'Item was updated successfully.'
       redirect_to item_path(@item)
     else
+      flash[:alert] = 'Item was not updated.'
       render 'edit'
     end
   end
 
   def destroy
-    if @item.destroy!
+    if @item.destroy
       flash[:notice] = 'Item was deleted successfully.'
     else
-      flash[:alert] = 'Item was not deleted successfully.'
+      flash[:alert] = 'Item was not deleted.'
     end
     redirect_to items_path
   end
@@ -70,27 +72,27 @@ class ItemsController < ApplicationController
     find_total
   end
 
-  def decrease
-    session[:hash][params[:id]] -= 1 if session[:hash][params[:id]] > 1
-  end
-
-  def increase
-    session[:hash][params[:id]] += 1 if session[:hash][params[:id]] < 100
-  end
-
   private
 
   def item_params
     params.require(:item).permit(:name, :description, :price, :status, :image, category_ids: [])
   end
 
-  def finding_order
+  def set_status
+    @item.status = if item_params[:status] == 'Available'
+                     1
+                   else
+                     0
+                   end
+  end
+
+  def finding_items
     if params[:category_id]
       item_for_category
     elsif params[:order_id]
       item_for_order
     else
-      Item.all
+      Item.all.page(params[:page]).per(5)
     end
   end
 
@@ -107,10 +109,10 @@ class ItemsController < ApplicationController
   end
 
   def item_for_category
-    Item.includes(:categories).where('categories.id' => params[:category_id].to_i)
+    Item.includes(:categories).where('categories.id' => params[:category_id].to_i).page(params[:page]).per(5)
   end
 
   def item_for_order
-    Item.includes(:orders).where('orders.id' => params[:order_id].to_i)
+    Item.includes(:orders).where('orders.id' => params[:order_id].to_i).page(params[:page]).per(5)
   end
 end

@@ -2,6 +2,7 @@
 
 class Item < ApplicationRecord
   include ImageUploader::Attachment(:image)
+  paginates_per 5
 
   has_many :category_items, dependent: :destroy
   has_many :categories, through: :category_items
@@ -14,8 +15,6 @@ class Item < ApplicationRecord
   validates :description, length: { minimum: 5, maximum: 500 }
   validates :price, numericality: { in: [100_000, 1] }
   validates :status, inclusion: { in: [1, 0] }
-
-  accepts_nested_attributes_for :categories
 
   default_scope { order(created_at: :desc) }
 end

@@ -19,6 +19,9 @@ Rails.application.routes.draw do
 
   resources :orders, except: %i[update destroy] do
     resources :items, only: %i[index]
+    member do
+      post :update_status
+    end
   end
 
   get '*path', to: 'orders#routes_exception'

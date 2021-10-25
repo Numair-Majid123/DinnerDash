@@ -58,14 +58,16 @@ group :test do
   gem 'selenium-webdriver'
 end
 
-gem 'activestorage-cloudinary-service'
+# gem 'activestorage-cloudinary-service'
 gem 'bootstrap', '~> 4.1.1'
 gem 'bootstrap_form', '~> 4.0'
-gem 'cloudinary', require: false
+gem 'carrierwave'
+gem 'cloudinary'
 gem 'devise'
 gem 'figaro'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
+gem 'kaminari'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

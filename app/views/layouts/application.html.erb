@@ -10,18 +10,22 @@
   </head>
 
   <body>
-    <%= render "layouts/navbar" %>
-    <% if notice %>
-      <p class="alert alert-success"><%= notice %></p>
-    <% end %>
-    <% if alert %>
-      <p class="alert alert-danger"><%= alert %></p>
-    <% end %>
+    <div id = 'navbar'>
+      <%= render "layouts/navbar" %>
+      <% if notice %>
+        <p class="alert alert-success"><%= notice %></p>
+      <% end %>
+      
+      <% if alert %>
+        <p class="alert alert-danger"><%= alert %></p>
+      <% end %>
+    </div>
     <% unless current_user&.display_name == '' %>
       &nbsp <h5 class="text-right mr-5"><b><%= current_user&.display_name%></h5></b>
-      <% else %>
+    <% else %>
       &nbsp <h5 class="text-right mr-5"><b><%= current_user&.name%></h5></b>
-      <% end %>
+    <% end %>
+    
     <%= yield %>
   </body>
 </html>

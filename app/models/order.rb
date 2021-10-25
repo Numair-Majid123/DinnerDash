@@ -3,6 +3,7 @@
 class Order < ApplicationRecord
   has_many :order_items, dependent: :destroy
   has_many :items, through: :order_items
+  paginates_per 5
 
   belongs_to :user
 

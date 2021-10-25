@@ -23,6 +23,8 @@
 
   <% if @item.image_url %>
     <%= cl_image_tag(@item.image_url, width: 400)%>
+  <% else %>
+    <%= image_tag('default.png', width: 400)%>
   <% end %>
   <div class = "m-3">
     <% if @item.status == 1%>

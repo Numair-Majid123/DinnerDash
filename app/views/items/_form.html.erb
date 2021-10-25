@@ -14,12 +14,12 @@
 
     <div class="mb-3">
       <b><%= f.label :price %></b><br />
-      <%= f.number_field :price, min: 0, max: 100000, required: true, autocomplete: "Enter price", class: "form-control" %>
+      <%= f.number_field :price, min: 0, max: 99999, required: true, autocomplete: "Enter price", class: "form-control" %>
     </div>
 
     <div class="mb-3">
-      <b><%= f.label :status %></b><br />
-      <%= f.number_field :status, min: 0, max: 1, required: true, autocomplete: "Status", class: "form-control" %>
+      <b><%= f.label :status %></b><br>
+     <%= f.select :status, ['Available', 'Out of Stock']%>
     </div>
 
     <%= f.fields_for :category_item do |p| %>
@@ -30,7 +30,7 @@
     <% end %>
     <div class = "mb-3">
       <%= f.label :image %>
-      <%= f.file_field :image, class: "btn btn-secondary" %>
+      <%= f.file_field :image, class: "btn btn-secondary", onchange: "validateFiles(this);", data: { max_file_size: 5.megabytes } %>
     </div>
 
     <div class="actions">

@@ -4,10 +4,10 @@ class OrdersController < ApplicationController
   include OrderHelper
   include CalculateTotal
 
-  before_action :find_order, only: %i[show edit]
+  before_action :find_order, only: %i[show update_status]
 
   def index
-    @orders = filter_orders
+    @orders = filter_orders.page(params[:page]).per(5)
   end
 
   def new
@@ -29,10 +29,10 @@ class OrdersController < ApplicationController
 
   def show; end
 
-  def edit
+  def update_status
     @order.order_status = params[:status]
     if @order.save
-      flash[:success] = 'Order Updated successfully'
+      flash[:notice] = 'Order Updated successfully'
     else
       flash[:error] = 'Order was not updated successfully'
     end
@@ -42,17 +42,16 @@ class OrdersController < ApplicationController
 
   def create_for_signed_in
     @order = Order.new
-    @order.transaction do
-      @order.user_id = current_user.id
-      save_order
-    end
+    @order.user_id = current_user.id
+    save_order
   end
 
   def save_order
-    @cart.each do |item|
-      @order.order_items.new(item_id: item.id, quantity: session[:hash][item.id.to_s])
-
-      if @order.save
+    @order.transaction do
+      if @order.save!
+        @cart.each do |item|
+          @order.order_items.create!(item_id: item.id, quantity: session[:hash][item.id.to_s])
+        end
         flash[:notice] = 'Order created successfully'
       else
         flash[:alert] = 'Order not created successfully'
