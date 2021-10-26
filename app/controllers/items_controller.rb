@@ -12,8 +12,8 @@ class ItemsController < ApplicationController
   end
 
   def index
-    @items = finding_items
-    @category = find_category.name if params[:category_id] && !find_category.nil?
+    @items = finding_items.page(params[:page]).per(5)
+    find_category_name
     redirect_to order_path(id: params[:order_id]) if params[:order_id]
   end
 
@@ -109,10 +109,14 @@ class ItemsController < ApplicationController
   end
 
   def item_for_category
-    Item.includes(:categories).where('categories.id' => params[:category_id].to_i).page(params[:page]).per(5)
+    Item.includes(:categories).where('categories.id' => params[:category_id].to_i)
   end
 
   def item_for_order
-    Item.includes(:orders).where('orders.id' => params[:order_id].to_i).page(params[:page]).per(5)
+    Item.includes(:orders).where('orders.id' => params[:order_id].to_i)
+  end
+
+  def find_category_name
+    @category = find_category.name if params[:category_id] && !find_category.nil?
   end
 end

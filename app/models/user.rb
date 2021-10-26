@@ -6,7 +6,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
 
-  validates :name, length: { minimum: 2, maximum: 32 }
+  validates :name, length: { minimum: 2, maximum: 32, message: 'Length must between 2-32' },
+                   uniqueness: { message: 'Title already exists.' }
   validates :name, :email, presence: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
 end
