@@ -41,9 +41,7 @@ RSpec.describe Item, type: :model do
     end
 
     it { is_expected.to validate_length_of(:description).is_at_least(5).is_at_most(500) }
-
     it { is_expected.to validate_length_of(:name).is_at_least(2).is_at_most(32) }
-
     it { is_expected.to validate_numericality_of(:price) }
     it { is_expected.to validate_numericality_of(:status) }
   end

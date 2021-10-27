@@ -10,6 +10,12 @@ RSpec.describe Category, type: :model do
       expect(category).to eq(false)
     end
 
+    # association
+    it 'have many items' do
+      t = described_class.reflect_on_association(:items)
+      expect(t.macro).to eq(:has_many)
+    end
+
     # good
     it 'saves successfully' do
       category = described_class.new(name: 'sample').save
