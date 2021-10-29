@@ -32,10 +32,10 @@ class OrdersController < ApplicationController
   def update_status
     @order.order_status = params[:status].to_i
 
-    if @order.save
+    if @order.save && !params[:status].nil?
       flash[:notice] = 'Order Updated successfully'
     else
-      flash[:alert] = error_message(@order)
+      flash[:alert] = 'Order can not update successfully'
     end
   end
 

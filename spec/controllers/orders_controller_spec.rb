@@ -55,6 +55,11 @@ RSpec.describe OrdersController, type: :controller do
                                        status: 0 }, xhr: true
         expect(flash[:notice]).to include('Order Updated successfully')
       end
+
+      it 'Not update order status' do
+        post :update_status, params: { id: order1.id }, xhr: true
+        expect(flash[:alert]).to include('Order can not update successfully')
+      end
     end
   end
 end
