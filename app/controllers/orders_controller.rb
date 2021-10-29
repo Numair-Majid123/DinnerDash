@@ -30,7 +30,8 @@ class OrdersController < ApplicationController
   def show; end
 
   def update_status
-    @order.order_status = params[:status]
+    @order.order_status = params[:status].to_i
+
     if @order.save
       flash[:notice] = 'Order Updated successfully'
     else
@@ -43,7 +44,7 @@ class OrdersController < ApplicationController
   def create_for_signed_in
     @order = Order.new
     @order.user_id = current_user.id
-    @order.order_status = 'Ordered'
+    @order.order_status = 0
     save_order
   end
 
