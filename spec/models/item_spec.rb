@@ -3,25 +3,27 @@
 require 'rails_helper'
 
 RSpec.describe Item, type: :model do
-  context 'with validation tests' do
+  context 'with invalid tests' do
     # bad
     it 'ensures name presence' do
-      item = described_class.new(price: 123, description: 'qwerty', status: 1).save
-      expect(item).to eq(false)
+      item = described_class.new(price: 123, description: 'qwerty', status: 1)
+      expect(item.valid?).to eq(false)
     end
 
     # bad
     it 'ensures price presence' do
-      item = described_class.new(name: 'qwerty', description: 'qwerty', status: 1).save
-      expect(item).to eq(false)
+      item = described_class.new(name: 'qwerty', description: 'qwerty', status: 1)
+      expect(item.valid?).to eq(false)
     end
 
     # bad
     it 'ensures description presence' do
-      item = described_class.new(name: 'qwerty', price: 123, status: 1).save
-      expect(item).to eq(false)
+      item = described_class.new(name: 'qwerty', price: 123, status: 1)
+      expect(item.valid?).to eq(false)
     end
+  end
 
+  context 'with valid tests' do
     # association
     it 'have many orders' do
       t = described_class.reflect_on_association(:orders)

@@ -3,13 +3,15 @@
 require 'rails_helper'
 
 RSpec.describe Category, type: :model do
-  context 'with validation tests' do
+  context 'with invalid tests' do
     # bad
     it 'ensures name presence' do
-      category = described_class.new(name: '').save
-      expect(category).to eq(false)
+      category = described_class.new(name: '')
+      expect(category.valid?).to eq(false)
     end
+  end
 
+  context 'with valid tests' do
     # association
     it 'have many items' do
       t = described_class.reflect_on_association(:items)
@@ -18,8 +20,8 @@ RSpec.describe Category, type: :model do
 
     # good
     it 'saves successfully' do
-      category = described_class.new(name: 'sample').save
-      expect(category).to eq(true)
+      category = described_class.new(name: 'sample')
+      expect(category.valid?).to eq(true)
     end
 
     # name length validation
