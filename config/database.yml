@@ -5,8 +5,8 @@ development:
   database: pg
   pool: 5
   timeout: 5000
-  username: ENV['db_username']
-  password: ENV['db_password']
+  username: admin
+  password: 123
 
 test:
   host: 'localhost'

@@ -37,3 +37,6 @@ Lint/AmbiguousBlockAssociation:
 
 Style/Documentation:
   Enabled: false
+
+RSpec/MultipleExpectations:
+  Max: 3

@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Order, type: :model do
+  let(:user1) { FactoryBot.create(:user) }
+
   context 'with invalid tests' do
     # bad
     it 'ensures user_id presence' do
@@ -26,7 +28,7 @@ RSpec.describe Order, type: :model do
 
     # good
     it 'saves successfully' do
-      item = described_class.new(order_status: 0, user_id: 13)
+      item = described_class.new(order_status: 0, user_id: user1.id)
       expect(item).to be_valid
     end
   end

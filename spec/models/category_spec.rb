@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Category, type: :model do
+  let(:user1) { FactoryBot.create(:user) }
+
   context 'with invalid tests' do
     # bad
     it 'ensures name presence' do
@@ -20,7 +22,7 @@ RSpec.describe Category, type: :model do
 
     # good
     it 'saves successfully' do
-      category = described_class.new(name: 'sample')
+      category = described_class.new(name: user1.name)
       expect(category.valid?).to eq(true)
     end
 
