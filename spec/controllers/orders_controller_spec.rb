@@ -37,7 +37,7 @@ RSpec.describe OrdersController, type: :controller do
         assert_redirected_to root_path
       end
 
-      it 'when order not created' do
+      it 'when order not created because user not signed in' do
         sign_out user
         post 'create', params: { id: order1.id }
         expect(response).to redirect_to new_user_session_path
@@ -61,5 +61,6 @@ RSpec.describe OrdersController, type: :controller do
         expect(flash[:alert]).to include('Order can not update successfully')
       end
     end
+
   end
 end

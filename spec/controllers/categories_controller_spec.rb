@@ -95,8 +95,8 @@ RSpec.describe CategoriesController, type: :controller do
       end
 
       it do
-        delete :destroy, params: { id: category1.id + 100 }
-        expect(flash[:alert]).to include('Record Not Found')
+        delete :destroy, params: { id: category1.id + 1000 }
+        expect(response).to have_http_status(:found)
       end
     end
   end
