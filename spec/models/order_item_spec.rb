@@ -22,13 +22,13 @@ RSpec.describe OrderItem, type: :model do
 
   context 'with valid tests' do
     # association with item
-    it 'have many items' do
+    it 'has many items' do
       association = described_class.reflect_on_association(:item)
       expect(association.macro).to eq(:belongs_to)
     end
 
     # association with category
-    it 'have many orders' do
+    it 'has many orders' do
       association = described_class.reflect_on_association(:order)
       expect(association.macro).to eq(:belongs_to)
     end

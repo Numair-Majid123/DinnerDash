@@ -27,13 +27,13 @@ RSpec.describe Item, type: :model do
 
   context 'with valid tests' do
     # association
-    it 'have many orders' do
+    it 'has many orders' do
       t = described_class.reflect_on_association(:orders)
       expect(t.macro).to eq(:has_many)
     end
 
     # association
-    it 'have many categories' do
+    it 'has many categories' do
       t = described_class.reflect_on_association(:categories)
       expect(t.macro).to eq(:has_many)
     end

@@ -15,13 +15,13 @@ RSpec.describe Order, type: :model do
 
   context 'with valid tests' do
     # association
-    it 'have many items' do
+    it 'has many items' do
       t = described_class.reflect_on_association(:items)
       expect(t.macro).to eq(:has_many)
     end
 
     # association
-    it 'have one user' do
+    it 'has one user' do
       t = described_class.reflect_on_association(:user)
       expect(t.macro).to eq(:belongs_to)
     end
