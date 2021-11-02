@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :item do
-    sequence(:name) { Faker::Name.name }
-    sequence(:description) { Faker::Name.name }
+    sequence(:name) { Faker::Name.unique.name }
+    sequence(:description) { Faker::Name.unique.name }
     price { 456 }
     status { 0 }
   end

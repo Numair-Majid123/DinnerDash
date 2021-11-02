@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :category do
-    name { 'name' }
+    sequence(:name) { Faker::Name.unique.name }
   end
 end
