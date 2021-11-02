@@ -16,7 +16,7 @@ RSpec.describe CategoriesController, type: :controller do
     Pundit.policy_scope!(:user, Category)
 
     describe '#index' do
-      it 'render a template' do
+      it do
         get :index
         expect(response).to render_template('index')
         expect(response).to have_http_status(:ok)
@@ -78,8 +78,8 @@ RSpec.describe CategoriesController, type: :controller do
       end
 
       it do
-        delete :destroy, params: { id: category1.id + 1000 }
-        expect(flash[:alert]).to eq('Record Not Found')
+        allow_any_instance_of(Category).to receive(:destroy).and_return(false)
+        delete :destroy, params: { id: category1.id} 
         expect(response).to have_http_status(:found)
       end
     end

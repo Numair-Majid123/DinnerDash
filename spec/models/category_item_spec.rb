@@ -7,33 +7,30 @@ RSpec.describe CategoryItem, type: :model do
   let(:item1) { FactoryBot.create :item }
 
   context 'with invalid tests' do
-    # bad
     it 'ensures item_id presence' do
       item = described_class.new(category_id: category1.id)
       expect(item.valid?).to eq(false)
     end
 
-    # bad
     it 'ensures category_id presence' do
       item = described_class.new(item_id: item1.id)
       expect(item.valid?).to eq(false)
     end
   end
 
-  context 'with valid tests' do
-    # association with item
-    it 'has many items' do
+  context 'with association' do
+    it 'belongs to items' do
       t = described_class.reflect_on_association(:item)
       expect(t.macro).to eq(:belongs_to)
     end
 
-    # association with category
-    it 'has many categories' do
+    it 'belongs to categories' do
       t = described_class.reflect_on_association(:category)
       expect(t.macro).to eq(:belongs_to)
     end
+  end
 
-    # good
+  context 'with valid tests' do
     it 'saves successfully' do
       item = described_class.new(item_id: item1.id, category_id: category1.id)
       expect(item).to be_valid
