@@ -50,9 +50,10 @@ RSpec.describe OrdersController, type: :controller do
     end
 
     describe '#new' do
-      it 'render :new' do
+      it 'render :new, check http status and instance of object' do
         get 'new'
         expect(response).to have_http_status(:ok)
+        expect(assigns[:order]).to be_instance_of(Order)
       end
     end
 

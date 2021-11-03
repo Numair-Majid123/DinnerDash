@@ -25,10 +25,11 @@ RSpec.describe CategoriesController, type: :controller do
     end
 
     describe '#new ' do
-      it 'respond to new and check status' do
+      it 'respond to new, check status and check instance of object' do
         get 'new', params: { category: { name: 'gfhdgdigsa' } }
         expect(response).to have_http_status(:ok)
         expect(response).to render_template('new')
+        expect(assigns[:category]).to be_instance_of(Category)
       end
     end
 
@@ -57,9 +58,10 @@ RSpec.describe CategoriesController, type: :controller do
     end
 
     describe '#edit' do
-      it 'render :edit' do
+      it 'render :edit, check http status and instance of object' do
         get :edit, params: { id: category1.id }
         expect(response).to have_http_status(:ok)
+        expect(assigns[:category]).to be_instance_of(Category)
       end
 
       it 'will fails authorization, flash alert' do
