@@ -16,16 +16,11 @@ RSpec.describe CategoriesController, type: :controller do
     Pundit.policy_scope!(:user, Category)
 
     describe '#index' do
-      it do
+      it 'Render index, http status ok and check instance variable'do
         get :index
         expect(response).to render_template('index')
         expect(response).to have_http_status(:ok)
-      end
-
-      it 'returns the specified category' do
-        cat = double('category')
-        allow(cat).to receive(:message).and_return(:value)
-        expect(cat.message).to eq(:value)
+        expect(assigns(:categories)).to eq(Category.all)
       end
     end
 
@@ -44,6 +39,7 @@ RSpec.describe CategoriesController, type: :controller do
         expect { category1.attributes }
           .to change(Category, :count).by(+1)
         expect(flash[:notice]).to include('Category created successfully')
+        expect(response).to have_http_status(:found)
         assert_redirected_to categories_path
       end
 
@@ -82,6 +78,7 @@ RSpec.describe CategoriesController, type: :controller do
       it do
         delete :destroy, params: { id: category1.id }
         expect(flash[:notice]).to eq('Category was deleted successfully.')
+        expect(response).to have_http_status(:found)
         expect(response).to redirect_to categories_path
       end
 

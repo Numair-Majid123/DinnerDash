@@ -23,6 +23,7 @@ RSpec.describe OrdersController, type: :controller do
         get :index
         expect(response).to have_http_status(:ok)
         expect(response).to render_template('index')
+        expect(assigns(:orders)).not_to be_nil
       end
 
       it 'index for all orders for admin' do
@@ -82,6 +83,7 @@ RSpec.describe OrdersController, type: :controller do
         post :update_status, params: { id: order1.id,
                                        status: 0 }, xhr: true
         expect(flash[:notice]).to include('Order Updated successfully')
+        expect(response).to have_http_status(:ok)
       end
 
       it 'Not update order status' do
