@@ -16,7 +16,7 @@ RSpec.describe CategoriesController, type: :controller do
     Pundit.policy_scope!(:user, Category)
 
     describe '#index' do
-      it 'Render index, http status ok and check instance variable'do
+      it 'Render index, http status ok and check instance variable' do
         get :index
         expect(response).to render_template('index')
         expect(response).to have_http_status(:ok)
@@ -36,11 +36,17 @@ RSpec.describe CategoriesController, type: :controller do
     describe '#create' do
       it 'will check category create, flash notice and redirects to @category' do
         post :create, params: { category: { name: 'abcdefgh' } }
-        expect { category1.attributes }
-          .to change(Category, :count).by(+1)
+        expect { category1.attributes }.to change(Category, :count).by(+1)
         expect(flash[:notice]).to include('Category created successfully')
         expect(response).to have_http_status(:found)
         assert_redirected_to categories_path
+      end
+
+      it 'will check authorization, flash alert' do
+        user.admin = false
+        user.save
+        post :create, params: { category: { name: 'abcdefgh' } }
+        expect(flash[:alert]).to include('You are not authorized.')
       end
 
       it 'when not create category' do
@@ -56,6 +62,13 @@ RSpec.describe CategoriesController, type: :controller do
         get :edit, params: { id: category1.id }
         expect(response).to have_http_status(:ok)
       end
+
+      it 'will check authorization, flash alert' do
+        user.admin = false
+        user.save
+        get :edit, params: { id: category1.id }
+        expect(flash[:alert]).to include('You are not authorized.')
+      end
     end
 
     describe '#update' do
@@ -64,6 +77,13 @@ RSpec.describe CategoriesController, type: :controller do
         expect(flash[:notice]).to include('Category was updated successfully.')
         expect(response).to have_http_status(:found)
         expect(response).to redirect_to categories_path
+      end
+
+      it 'will check authorization, flash alert' do
+        user.admin = false
+        user.save
+        patch :update, params: { category: { name: 'abcdef' }, id: category1.id }
+        expect(flash[:alert]).to include('You are not authorized.')
       end
 
       it 'when not updates the category and render to edit page' do
@@ -80,6 +100,13 @@ RSpec.describe CategoriesController, type: :controller do
         expect(flash[:notice]).to eq('Category was deleted successfully.')
         expect(response).to have_http_status(:found)
         expect(response).to redirect_to categories_path
+      end
+
+      it 'will check authorization, flash alert' do
+        user.admin = false
+        user.save
+        delete :destroy, params: { id: category1.id }
+        expect(flash[:alert]).to include('You are not authorized.')
       end
 
       it do

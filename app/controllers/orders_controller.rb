@@ -30,11 +30,7 @@ class OrdersController < ApplicationController
   def show; end
 
   def update_status
-    unless params[:status].blank?
-      @order.order_status = params[:status].to_i
-    else
-      @order.order_status = nil
-    end
+    @order.order_status = (params[:status].to_i if params[:status].present?)
 
     if @order.save
       flash[:notice] = 'Order Updated successfully'
