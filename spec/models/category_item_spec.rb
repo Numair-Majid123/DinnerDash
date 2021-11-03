@@ -7,12 +7,12 @@ RSpec.describe CategoryItem, type: :model do
   let(:item1) { FactoryBot.create :item }
 
   context 'with invalid tests' do
-    it 'ensures item_id presence' do
+    it 'Fails: ensures item_id presence' do
       item = described_class.new(category_id: category1.id)
       expect(item.valid?).to eq(false)
     end
 
-    it 'ensures category_id presence' do
+    it 'Fails: ensures category_id presence' do
       item = described_class.new(item_id: item1.id)
       expect(item.valid?).to eq(false)
     end

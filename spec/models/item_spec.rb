@@ -6,17 +6,17 @@ RSpec.describe Item, type: :model do
   let(:item1) { FactoryBot.create :item }
 
   context 'with invalid tests' do
-    it 'ensures name presence' do
+    it 'Fails: ensures name presence' do
       item = described_class.new(price: item1.price, description: item1.description, status: item1.status)
       expect(item.valid?).to eq(false)
     end
 
-    it 'ensures price presence' do
+    it 'Fails: ensures price presence' do
       item = described_class.new(name: item1.name, description: item1.description, status: item1.status)
       expect(item.valid?).to eq(false)
     end
 
-    it 'ensures description presence' do
+    it 'Fails: ensures description presence' do
       item = described_class.new(name: item1.name, price: item1.price, status: item1.status)
       expect(item.valid?).to eq(false)
     end
@@ -53,11 +53,7 @@ RSpec.describe Item, type: :model do
 
     it { is_expected.to validate_length_of(:description).is_at_least(5).is_at_most(500) }
     it { is_expected.to validate_length_of(:name).is_at_least(2).is_at_most(32) }
-
-    it {
-      expect(subject).to validate_numericality_of(:price).is_greater_than_or_equal_to(1).is_less_than_or_equal_to(100_000)
-    }
-
+    it { expect(subject).to validate_numericality_of(:price).is_greater_than_or_equal_to(1).is_less_than_or_equal_to(100_000) }
     it { is_expected.to validate_numericality_of(:status).is_greater_than_or_equal_to(0).is_less_than_or_equal_to(1) }
   end
 end

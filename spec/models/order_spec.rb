@@ -6,7 +6,7 @@ RSpec.describe Order, type: :model do
   let(:user1) { FactoryBot.create(:user) }
 
   context 'with invalid tests' do
-    it 'ensures user_id presence' do
+    it 'Fails: ensures user_id presence' do
       item = described_class.new(order_status: 0)
       expect(item.valid?).to eq(false)
     end

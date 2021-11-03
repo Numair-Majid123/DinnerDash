@@ -57,7 +57,7 @@ RSpec.describe OrdersController, type: :controller do
     end
 
     describe '#create' do
-      it 'when order created' do
+      it 'when order created, check status, rediect to root and check actually order created' do
         post 'create', params: { id: Faker::IDNumber.croatian_id }
         expect { order1.attributes }
           .to change(Order, :count).by(+1)
@@ -65,7 +65,7 @@ RSpec.describe OrdersController, type: :controller do
         assert_redirected_to root_path
       end
 
-      it 'when order not created because user not signed in' do
+      it 'when order not created because user not signed in and rediect to new user session path' do
         sign_out user
         post 'create', params: { id: order1.id }
         expect(response).to redirect_to new_user_session_path
@@ -79,14 +79,14 @@ RSpec.describe OrdersController, type: :controller do
     end
 
     describe '#update_status' do
-      it 'update order status' do
+      it 'update order status, check http status and flash notice' do
         post :update_status, params: { id: order1.id,
                                        status: 0 }, xhr: true
         expect(flash[:notice]).to include('Order Updated successfully')
         expect(response).to have_http_status(:ok)
       end
 
-      it 'Not update order status' do
+      it 'Not update order status, check http status and flash alert' do
         post :update_status, params: { id: order1.id }, xhr: true
         expect(flash[:alert]).to include('Order can not update successfully')
         expect(response).to have_http_status(:ok)

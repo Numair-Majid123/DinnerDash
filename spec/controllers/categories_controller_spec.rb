@@ -25,11 +25,10 @@ RSpec.describe CategoriesController, type: :controller do
     end
 
     describe '#new ' do
-      it 'respond to new' do
-        get 'new', params: {
-          category: { name: 'gfhdgdigsa' }
-        }
+      it 'respond to new and check status' do
+        get 'new', params: { category: { name: 'gfhdgdigsa' } }
         expect(response).to have_http_status(:ok)
+        expect(response).to render_template('new')
       end
     end
 
@@ -42,14 +41,14 @@ RSpec.describe CategoriesController, type: :controller do
         assert_redirected_to categories_path
       end
 
-      it 'will check authorization, flash alert' do
+      it 'will fails authorization, flash alert' do
         user.admin = false
         user.save
         post :create, params: { category: { name: 'abcdefgh' } }
         expect(flash[:alert]).to include('You are not authorized.')
       end
 
-      it 'when not create category' do
+      it 'when not create category because name can not be empty and render to new' do
         post 'create', params: { category: { name: '' } }
         expect(flash[:alert]).to include('Name can\'t be blank, Name is too short (minimum is 2 characters)')
         expect(response).to have_http_status(:ok)
@@ -63,7 +62,7 @@ RSpec.describe CategoriesController, type: :controller do
         expect(response).to have_http_status(:ok)
       end
 
-      it 'will check authorization, flash alert' do
+      it 'will fails authorization, flash alert' do
         user.admin = false
         user.save
         get :edit, params: { id: category1.id }
@@ -72,21 +71,21 @@ RSpec.describe CategoriesController, type: :controller do
     end
 
     describe '#update' do
-      it 'updates the category and redirects categories_path' do
+      it 'updates the category, check http status and redirects categories_path' do
         patch :update, params: { category: { name: 'abcdef' }, id: category1.id }
         expect(flash[:notice]).to include('Category was updated successfully.')
         expect(response).to have_http_status(:found)
         expect(response).to redirect_to categories_path
       end
 
-      it 'will check authorization, flash alert' do
+      it 'will fails authorization, flash alert' do
         user.admin = false
         user.save
         patch :update, params: { category: { name: 'abcdef' }, id: category1.id }
         expect(flash[:alert]).to include('You are not authorized.')
       end
 
-      it 'when not updates the category and render to edit page' do
+      it 'when not updates the category because name can not be empty and render to edit page' do
         patch :update, params: { category: { name: '' }, id: category1.id }
         expect(flash[:alert]).to include('Name can\'t be blank, Name is too short (minimum is 2 characters)')
         expect(response).to have_http_status(:ok)
@@ -95,21 +94,21 @@ RSpec.describe CategoriesController, type: :controller do
     end
 
     describe 'DELETE #destroy' do
-      it do
+      it 'detete category, check http status, rediect to categories index and flash notice' do
         delete :destroy, params: { id: category1.id }
         expect(flash[:notice]).to eq('Category was deleted successfully.')
         expect(response).to have_http_status(:found)
         expect(response).to redirect_to categories_path
       end
 
-      it 'will check authorization, flash alert' do
+      it 'will fails authorization, flash alert' do
         user.admin = false
         user.save
         delete :destroy, params: { id: category1.id }
         expect(flash[:alert]).to include('You are not authorized.')
       end
 
-      it do
+      it 'Fails destroy and check http status' do
         allow_any_instance_of(Category).to receive(:destroy).and_return(false)
         delete :destroy, params: { id: category1.id }
         expect(response).to have_http_status(:found)

@@ -7,22 +7,22 @@ RSpec.describe OrderItem, type: :model do
   let(:item1) { FactoryBot.create :item }
 
   context 'with invalid tests' do
-    it 'ensures item_id presence' do
+    it 'Fails: ensures item_id presence' do
       item = described_class.new(quantity: 8, order_id: order1.id)
       expect(item.valid?).to eq(false)
     end
 
-    it 'ensures order_id presence' do
+    it 'Fails: ensures order_id presence' do
       item = described_class.new(quantity: 8, item_id: item1.id)
       expect(item.valid?).to eq(false)
     end
 
-    it 'ensures quantity greater than 0' do
+    it 'Fails: ensures quantity greater than 0' do
       item = described_class.new(quantity: 0, item_id: item1.id, order_id: order1.id)
       expect(item.valid?).to eq(false)
     end
 
-    it 'ensures quantity less than 100' do
+    it 'Fails: ensures quantity less than 100' do
       item = described_class.new(quantity: 101, item_id: item1.id, order_id: order1.id)
       expect(item.valid?).to eq(false)
     end
