@@ -30,9 +30,13 @@ class OrdersController < ApplicationController
   def show; end
 
   def update_status
-    @order.order_status = params[:status].to_i
+    unless params[:status].blank?
+      @order.order_status = params[:status].to_i
+    else
+      @order.order_status = nil
+    end
 
-    if @order.save && !params[:status].nil?
+    if @order.save
       flash[:notice] = 'Order Updated successfully'
     else
       flash[:alert] = 'Order can not update successfully'
@@ -50,12 +54,14 @@ class OrdersController < ApplicationController
 
   def save_order
     @order.transaction do
+      raise 'Error: Order can\'t save because cart is empty.' if @cart.empty?
+
       @order.save!
       @cart.each do |item|
         @order.order_items.create!(item_id: item.id, quantity: session[:hash][item.id.to_s])
       end
     end
-  rescue ActiveRecord::RecordInvalid => e
+  rescue StandardError => e
     flash[:alert] = e
   end
 

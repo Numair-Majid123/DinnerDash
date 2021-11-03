@@ -24,7 +24,8 @@ RSpec.describe User, type: :model do
     end
 
     it 'name length should be more than 32' do
-      user = described_class.new(name: 'sqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq', email: 'sample@example.com', password: '123456')
+      user = described_class.new(name: 'sqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq', email: 'sample@example.com',
+                                 password: '123456')
       expect(user).not_to be_valid
       expect(user.errors.messages[:name]).to eq(['Length must between 2-32'])
     end
@@ -42,11 +43,9 @@ RSpec.describe User, type: :model do
   end
 
   context 'with valid tests' do
-    # good
     it 'saves successfully' do
       user = described_class.new(name: 'sample', email: 'sample@example.com', password: '123456')
       expect(user).to be_valid
     end
   end
-
 end

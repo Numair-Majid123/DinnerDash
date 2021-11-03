@@ -57,7 +57,9 @@ RSpec.describe OrdersController, type: :controller do
 
     describe '#create' do
       it 'when order created' do
-        post 'create', params: { id: order1.id }
+        post 'create', params: { id: Faker::IDNumber.croatian_id }
+        expect { order1.attributes }
+          .to change(Order, :count).by(+1)
         expect(response).to have_http_status(:found)
         assert_redirected_to root_path
       end
@@ -66,6 +68,12 @@ RSpec.describe OrdersController, type: :controller do
         sign_out user
         post 'create', params: { id: order1.id }
         expect(response).to redirect_to new_user_session_path
+      end
+
+      it 'when order not created because cart empty' do
+        session[:cart] = []
+        session[:hash] = {}
+        post 'create', params: { id: order1.id }
       end
     end
 
