@@ -53,7 +53,6 @@ RSpec.describe OrdersController, type: :controller do
       it 'render :new, check http status and instance of object' do
         get 'new'
         expect(response).to have_http_status(:ok)
-        expect(assigns[:order]).to be_instance_of(Order)
       end
     end
 
@@ -84,6 +83,14 @@ RSpec.describe OrdersController, type: :controller do
         post :update_status, params: { id: order1.id,
                                        status: 0 }, xhr: true
         expect(flash[:notice]).to include('Order Updated successfully')
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'Not update order status because user not admin' do
+        user.admin = false
+        user.save
+        post :update_status, params: { id: order1.id, status: 0 }, xhr: true
+        expect(flash[:alert]).to include('You are not authorized')
         expect(response).to have_http_status(:ok)
       end
 

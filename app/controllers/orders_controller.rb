@@ -3,6 +3,7 @@
 class OrdersController < ApplicationController
   include OrderHelper
   include CalculateTotal
+  include AuthorizedPolicy
 
   before_action :find_order, only: %i[show update_status]
 
@@ -30,6 +31,7 @@ class OrdersController < ApplicationController
   def show; end
 
   def update_status
+    authorized_user(@order)
     @order.order_status = (params[:status].to_i if params[:status].present?)
 
     if @order.save
