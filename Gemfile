@@ -57,6 +57,7 @@ group :test do
   gem 'chromedriver-helper'
   gem 'factory_bot_rails'
   gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
+  gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 5.0.0'
   gem 'rubocop-rspec'
   gem 'selenium-webdriver'
@@ -77,7 +78,6 @@ gem 'kaminari'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'rails-controller-testing'
   gem 'rubocop'
   gem 'rubocop-performance'
   gem 'rubocop-rails'

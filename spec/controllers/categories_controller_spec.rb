@@ -13,8 +13,6 @@ RSpec.describe CategoriesController, type: :controller do
       user.confirm
     end
 
-    Pundit.policy_scope!(:user, Category)
-
     describe '#index' do
       it 'Render index, http status ok and check instance variable' do
         get :index
@@ -36,7 +34,7 @@ RSpec.describe CategoriesController, type: :controller do
     describe '#create' do
       it 'will check category create, flash notice and redirects to @category' do
         post :create, params: { category: { name: 'abcdefgh' } }
-        expect { category1.attributes }.to change(Category, :count).by(+1)
+        expect { category1.attributes }.to change(Category, :count).by(1)
         expect(flash[:notice]).to include('Category created successfully')
         expect(response).to have_http_status(:found)
         assert_redirected_to categories_path

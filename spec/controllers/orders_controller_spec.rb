@@ -59,8 +59,7 @@ RSpec.describe OrdersController, type: :controller do
     describe '#create' do
       it 'when order created, check status, rediect to root and check actually order created' do
         post 'create', params: { id: Faker::IDNumber.croatian_id }
-        expect { order1.attributes }
-          .to change(Order, :count).by(+1)
+        expect { order1.attributes }.to change(Order, :count).by(1)
         expect(response).to have_http_status(:found)
         assert_redirected_to root_path
       end
