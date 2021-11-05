@@ -42,7 +42,7 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
-    if @category.destroy!
+    if @category.destroy
       flash[:notice] = 'Category was deleted successfully.'
     else
       flash[:alert] = error_message(@category)

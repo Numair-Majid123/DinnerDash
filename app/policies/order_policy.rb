@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class OrderPolicy < ApplicationPolicy
-  def all_orders?
+  def update_status?
     new?
   end
 end
