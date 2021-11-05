@@ -33,7 +33,6 @@ class OrdersController < ApplicationController
   def update_status
     authorized_user(@order)
     @order.order_status = (params[:status].to_i if params[:status].present?)
-
     if @order.save
       flash[:notice] = 'Order Updated successfully'
     else
