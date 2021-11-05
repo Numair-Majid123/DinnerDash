@@ -5,8 +5,8 @@ development:
   database: pg
   pool: 5
   timeout: 5000
-  username: ENV['db_username']
-  password: ENV['db_password']
+  username: <%= ENV['db_username'] %>
+  password: <%= ENV['db_password'] %>
 
 test:
   host: 'localhost'
@@ -15,5 +15,5 @@ test:
   database: pg
   pool: 5
   timeout: 5000
-  username: admin
-  password: 123
+  username: <%= ENV['db_username'] %>
+  password: <%= ENV['db_password'] %>

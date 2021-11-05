@@ -66,6 +66,15 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
+  config.expect_with :rspec do |c|
+    c.syntax = :expect
+  end
+
+  config.include Devise::TestHelpers, type: :routing
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :helper
+  config.include Warden::Test::Helpers
+
   Shoulda::Matchers.configure do |c|
     c.integrate do |with|
       # Choose a test framework:

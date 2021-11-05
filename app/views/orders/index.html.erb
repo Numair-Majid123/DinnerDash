@@ -37,10 +37,10 @@
               Status
             </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <%= button_to 'Ordered', update_status_order_path(order, status: 'Ordered'), remote: true, class:"dropdown-item" %>
-                <%= button_to 'Paid', update_status_order_path(order, status: 'Paid'), remote: true, class:"dropdown-item" %>
-                <%= button_to 'Cancelled', update_status_order_path(order, status: 'Cancelled'), remote: true, class:"dropdown-item" %>
-                <%= button_to 'Completed', update_status_order_path(order, status: 'Completed'), remote: true, class:"dropdown-item" %>
+                <%= button_to 'Ordered', update_status_order_path(order, status: 0), remote: true, class:"dropdown-item" %>
+                <%= button_to 'Paid', update_status_order_path(order, status: 1), remote: true, class:"dropdown-item" %>
+                <%= button_to 'Cancelled', update_status_order_path(order, status: 2), remote: true, class:"dropdown-item" %>
+                <%= button_to 'Completed', update_status_order_path(order, status: 3), remote: true, class:"dropdown-item" %>
               </div>
           </div></td>
         <% end %> 

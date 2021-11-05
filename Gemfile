@@ -55,7 +55,14 @@ end
 group :test do
   gem 'capybara', '>= 2.15'
   gem 'chromedriver-helper'
+  gem 'factory_bot_rails'
+  gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
+  gem 'rails-controller-testing'
+  gem 'rspec-rails', '~> 5.0.0'
+  gem 'rubocop-rspec'
   gem 'selenium-webdriver'
+  gem 'shoulda-matchers', require: false
+  gem 'simplecov', require: false, group: :test
 end
 
 # gem 'activestorage-cloudinary-service'
@@ -71,11 +78,7 @@ gem 'kaminari'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'rspec-rails', '~> 5.0.0'
   gem 'rubocop'
   gem 'rubocop-performance'
   gem 'rubocop-rails'
-  gem 'rubocop-rspec'
 end
-gem 'shoulda-matchers', require: false
-gem 'simplecov', require: false, group: :test
