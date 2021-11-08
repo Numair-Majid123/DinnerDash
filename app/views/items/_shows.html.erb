@@ -32,9 +32,9 @@
           <td><b><%= item.name%></b></td>
           <td><%= link_to 'Show item', item_path(id: item.id), class: "btn btn-info" %></td>
           <% if item.status == 1%>
-            <td><%= button_to "Remove from cart", remove_from_cart_item_path(item), method: :delete, class: "btn btn-danger #{"none" unless @cart.include?(item)}", remote: true, id: "Remove#{item.id}" %>
+            <td><%= button_to "Remove from cart", remove_from_cart_item_path(item), method: :delete, class: "btn btn-danger #{"none" unless @cart.include?(item)}", id: "Remove#{item.id}" %>
 
-            <%= button_to "Add to cart", add_to_cart_item_path(item),class:"btn btn-success #{"none" if @cart.include?(item)}", id: "Create#{item.id}", remote: true %> </td>
+            <%= button_to "Add to cart", add_to_cart_item_path(item),class:"btn btn-success #{"none" if @cart.include?(item)}", id: "Create#{item.id}" %> </td>
           <% else %>
             <td>Out of Stock</td>
           <% end %> 

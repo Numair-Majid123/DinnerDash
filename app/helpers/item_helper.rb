@@ -10,12 +10,12 @@ module ItemHelper
 
   def add_to_cart
     session[:cart] << params[:id].to_i unless session[:cart].include?(params[:id].to_i)
-    # redirect_back(fallback_location: root_path)
+    redirect_back(fallback_location: root_path)
   end
 
   def remove_from_cart
     session[:cart].delete(params[:id].to_i)
-    # redirect_back(fallback_location: root_path)
+    redirect_back(fallback_location: root_path)
   end
 
   def decrease
