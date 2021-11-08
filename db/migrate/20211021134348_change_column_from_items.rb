@@ -2,14 +2,18 @@
 
 class ChangeColumnFromItems < ActiveRecord::Migration[5.2]
   def up
-      change_column_default(:items, :name, nil)
-      change_column_default(:items, :description, nil)
-      change_column_default(:categories, :name, nil)
+    change_table :items, bulk: true do |t|
+      change_column_default(t, :name, nil)
+      change_column_default(t, :description, nil)
+    end
+    change_column_default(:categories, :name, nil)
   end
 
   def down
-      change_column :items, :name, default: ''
-      change_column :items, :description, default: ''
-      change_column :categories, :name, default: ''
+    change_table :items, bulk: true do |t|
+      change_column t, :name, default: ''
+      change_column t, :description, default: ''
+    end
+    change_column :categories, :name, default: ''
   end
 end

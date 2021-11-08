@@ -49,10 +49,9 @@ class OrdersController < ApplicationController
 
   def save_order
     @order.transaction do
-      if @order.save!
-        @cart.each do |item|
-          @order.order_items.create!(item_id: item.id, quantity: session[:hash][item.id.to_s])
-        end
+      @order.save!
+      @cart.each do |item|
+        @order.order_items.create!(item_id: item.id, quantity: session[:hash][item.id.to_s])
       end
     end
   rescue ActiveRecord::RecordInvalid => e
