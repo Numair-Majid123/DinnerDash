@@ -3,6 +3,7 @@
 class OrdersController < ApplicationController
   include OrderHelper
   include CalculateTotal
+  include AuthorizedPolicy
 
   before_action :find_order, only: %i[show update_status]
 
@@ -30,11 +31,12 @@ class OrdersController < ApplicationController
   def show; end
 
   def update_status
-    @order.order_status = params[:status]
+    authorized_user(@order)
+    @order.order_status = (params[:status].to_i if params[:status].present?)
     if @order.save
       flash[:notice] = 'Order Updated successfully'
     else
-      flash[:alert] = error_message(@order)
+      flash[:alert] = 'Order can not update successfully'
     end
   end
 
@@ -43,18 +45,20 @@ class OrdersController < ApplicationController
   def create_for_signed_in
     @order = Order.new
     @order.user_id = current_user.id
-    @order.order_status = 'Ordered'
+    @order.order_status = 0
     save_order
   end
 
   def save_order
     @order.transaction do
+      raise 'Error: Order can\'t save because cart is empty.' if @cart.empty?
+
       @order.save!
       @cart.each do |item|
         @order.order_items.create!(item_id: item.id, quantity: session[:hash][item.id.to_s])
       end
     end
-  rescue ActiveRecord::RecordInvalid => e
+  rescue StandardError => e
     flash[:alert] = e
   end
 
