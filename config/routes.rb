@@ -24,6 +24,17 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :api do
+    namespace :v1 do
+      resources :orders, only: %i[index]
+      resources :items, only: %i[index] do
+        collection do
+          post :create_item
+        end
+      end
+    end
+  end
+
   get '*path', to: 'orders#routes_exception'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

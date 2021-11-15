@@ -48,6 +48,7 @@ group :development do
   gem 'dotenv-rails'
   gem 'web-console', '>= 3.3.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'rack-cors'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
@@ -55,7 +56,14 @@ end
 group :test do
   gem 'capybara', '>= 2.15'
   gem 'chromedriver-helper'
+  gem 'factory_bot_rails'
+  gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
+  gem 'rails-controller-testing'
+  gem 'rspec-rails', '~> 5.0.0'
+  gem 'rubocop-rspec'
   gem 'selenium-webdriver'
+  gem 'shoulda-matchers', require: false
+  gem 'simplecov', require: false, group: :test
 end
 
 # gem 'activestorage-cloudinary-service'
@@ -74,5 +82,4 @@ group :development, :test do
   gem 'rubocop'
   gem 'rubocop-performance'
   gem 'rubocop-rails'
-  gem 'rubocop-rspec'
 end
