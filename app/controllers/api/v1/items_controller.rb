@@ -3,6 +3,7 @@
 module Api
   module V1
     class ItemsController < ApplicationController
+      skip_before_action :verify_authenticity_token
       def index
         items = Item.select('name', 'price', 'description')
         render json: items

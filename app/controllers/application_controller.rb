@@ -6,8 +6,8 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :initialize_session
   before_action :load_cart
-
-  after_action :set_csrf_cookie
+  protect_from_forgery with: :null_session
+  # after_action :set_csrf_cookie
 
   def set_csrf_cookie
     cookies['XSRF-TOKEN'] = form_authenticity_token if protect_against_forgery?
